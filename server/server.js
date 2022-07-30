@@ -4,9 +4,9 @@ const apiController = require('./apiController');
 const express = require('express');
 const server = express();
 
-const contact = require('./routes/contact_us')
-const map = require('./routes/map')
-const about = require('./routes/about')
+// const contact = require('./routes/contact_us')
+// const map = require('./routes/map')
+// const about = require('./routes/about')
 
 
 
@@ -14,7 +14,7 @@ server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 
 server.use('/contact', contact);
-server.use('/map', map);
+// server.use('/map', map);
 server.use('/about', about);
 
 

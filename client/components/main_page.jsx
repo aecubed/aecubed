@@ -14,7 +14,6 @@ const Main = () => {
 
 
 return (
-  //Navbar
   <>
 
     {/* Navbar */}
@@ -22,19 +21,22 @@ return (
         <a class="navbar-brand" href="#">AE^3</a>
       </nav>
 
+
     {/* Energy Selection */}
       <div class="btn-group" role="group" aria-label="Choose Energy Source">
         <button type="button" class="btn solar-btn">Solar</button>
         <button type="button" class="btn wind-btn">Wind</button>
         <button type="button" class="btn rain-btn">Rain</button>
       </div>
+
+
     {/* Enter ZIP */}
-
-    {/* Filters */}
-    <div>
-
-    </div>
-
+    <form>
+      <div class="form group">
+        <label for="zipcodeInput">ZIP Code</label>
+        <input type="number" class="form-control" id="inputZIP" placeholder="Enter ZIP"></input>
+      </div>
+    </form>
 
 
     {/* Location Table */}
@@ -46,14 +48,6 @@ return (
       <tbody>
         <tr>
           <th scope="row">Location1</th>
-          <th scope="row">Energy Source</th>
-        </tr>
-        <tr>
-          <th scope="row">Location2</th>
-          <th scope="row">Energy Source</th>
-        </tr>
-        <tr>
-          <th scope="row">Location3</th>
           <th scope="row">Energy Source</th>
         </tr>
       </tbody>
