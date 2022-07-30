@@ -1,5 +1,77 @@
 @import "~bootstrap/scss/bootstrap";
 
-.test{
-    background-color: $indigo-100;
-}
+
+.navbar{
+    background-color:#29B675
+};
+    
+
+//Parent container for energy orbs
+.orbs-parent{
+    display: flex;
+    background-color: #29B675;
+    border: 3px;
+    border-color: red;
+  }
+  
+  //style for solar orb resize
+  .solar-orb{
+    position: relative;
+    top: calc(50% - 150px);
+    left: calc(50% - 150px);
+    width: 300px;
+    height: 300px;
+    resize: both;
+    border-radius: 50%;
+    box-shadow:
+      inset 0 0 50px #fff,
+      inset 20px 0 80px #f0f,
+      inset -20px 0 80px #0ff,
+      inset 20px 0 300px #f0f,
+      inset -20px 0 300px #0ff,
+      0 0 50px #fff,
+      -10px 0 80px #f0f,
+      10px 0 80px #0ff;
+  }
+  
+  //style for wind orb resize
+  .wind-orb{
+    position: relative;
+    top: calc(50% - 150px);
+    left: calc(50% - 150px);
+    width: 300px;
+    height: 300px;
+    resize: both;
+    border-radius: 50%;
+    box-shadow:
+      inset 0 0 50px #fff,
+      inset 20px 0 80px #f0f,
+      inset -20px 0 80px #0ff,
+      inset 20px 0 300px #f0f,
+      inset -20px 0 300px #0ff,
+      0 0 50px #fff,
+      -10px 0 80px #f0f,
+      10px 0 80px #0ff;
+  }
+  
+  //style for rain orb
+  .rain-orb{
+    position: relative;
+    top: calc(50% - 150px);
+    left: calc(50% - 150px);
+    width: 300px;
+    height: 300px;
+    resize: both;
+    border-radius: 50%;
+    box-shadow:
+      inset 0 0 50px #fff,
+      inset 20px 0 80px #f0f,
+      inset -20px 0 80px #0ff,
+      inset 20px 0 300px #f0f,
+      inset -20px 0 300px #0ff,
+      0 0 50px #fff,
+      -10px 0 80px #f0f,
+      10px 0 80px #0ff;
+  }
+  
+  
