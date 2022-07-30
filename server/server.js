@@ -11,9 +11,9 @@ const mapRouter = require('./routes/map')
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 
-server.use('/contact', contact);
+// server.use('/contact', contact);
 // server.use('/map', map);
-server.use('/about', about);
+// server.use('/about', about);
 
 
 server.get('/', (req, res, next) => {
@@ -21,7 +21,7 @@ server.get('/', (req, res, next) => {
 });
 
 // server.use('/contact', contactRouter);
-server.use('/map', mapRouter);
+// server.use('/map', mapRouter);
 // server.use('/about', aboutRouter);
 
 // catch-all route handler for any requests to an unknown route
