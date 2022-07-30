@@ -25,6 +25,7 @@
 		"file-loader": "^6.2.0",
 		"html-webpack-plugin": "^5.5.0",
 		"nodemon": "^1.19.4",
+		"postcss": "^8.4.14",
 		"postcss-loader": "^7.0.1",
 		"style-loader": "^3.3.1",
 		"webpack": "^5.64.1",
