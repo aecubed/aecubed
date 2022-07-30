@@ -4,12 +4,19 @@ const apiController = require('./apiController');
 const express = require('express');
 const server = express();
 
-const contactRouter = require('./routes/contact_us')
-const mapRouter = require('./routes/map')
-const aboutRouter = require('./routes/about')
+// const contact = require('./routes/contact_us')
+// const map = require('./routes/map')
+// const about = require('./routes/about')
+
+
 
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
+
+server.use('/contact', contact);
+// server.use('/map', map);
+server.use('/about', about);
+
 
 server.get('/', (req, res, next) => {
   res.sendFile(path.resolve(__dirname, '../public/index.html'));
