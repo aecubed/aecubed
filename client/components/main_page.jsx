@@ -14,11 +14,16 @@ const Main = () => {
 
 
 return (
+  //Navbar
+
+
   //Energy Orbs
  <div class = "orbs-parent">
-  <div class = "solar-orb"></div>
-  <div class = "wind-orb"></div>
-  <div class = "rain-orb"></div>
+  <div class = "solar-orb">Solar</div>
+  <div class = "wind-orb">Wind</div>
+  <div class = "rain-orb">Rain</div>
  </div>
 );
 };
+
+export default Main;
