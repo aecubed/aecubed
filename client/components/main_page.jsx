@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { Link } from 'react-router-dom';
 
 const Main = () => {
 //State for main energy sources. Default to best energy sources for the top 3 locations overall.
@@ -22,6 +23,7 @@ return (
   <div class = "solar-orb">Solar</div>
   <div class = "wind-orb">Wind</div>
   <div class = "rain-orb">Rain</div>
+  <Link to = "/about" >About</Link>
  </div>
 );
 };

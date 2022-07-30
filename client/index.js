@@ -5,7 +5,7 @@ import reactDom from 'react-dom';
 // import "bootstrap/dist/css/bootstrap.min.css";
 // import "bootstrap/dist/js/bootstrap.bundle.min";
 
-import "./stylesheets/style.css"
+import "./stylesheets/style.scss"
 import * as bootstrap from 'bootstrap';
 
 import App from './components/App.jsx'
