@@ -21,10 +21,6 @@ apiController.directGeocode = (req, res, next) => {
 
 }
 
-const kelvintocelsius = (temp) => {
-  return temp - 273.15;
-}
-
 apiController.getWeatherData = (req, res, next) => {
   const { lat, lon } = res.locals.geocode;
   // temp, pressure, humidity, wind, precipitation, clouds, sunshine_hours
@@ -35,6 +31,9 @@ apiController.getWeatherData = (req, res, next) => {
     wind: 0,
     precipitation: 0,
     clouds: 0
+  }
+  const kelvintocelsius = (temp) => {
+    return temp - 273.15;
   }
 
   axios.get(`https://history.openweathermap.org/data/2.5/aggregated/year?lat=${lat}&lon=${lon}&appid=${APIkey}`)
