@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
+import handleSubmit from './weather_data';
 
 const Main = () => {
 //State for main energy sources. Default to best energy sources for the top 3 locations overall.
@@ -50,11 +51,11 @@ return (
 
 
     {/* Enter ZIP */}
-    <form>
-      <div className="form group">
-        <label htmlFor="zipcodeInput">ZIP Code</label>
-        <input type="number" className="form-control" id="inputZIP" placeholder="Enter ZIP"></input>
-        <input type="submit" value= "Submit"></input>
+    <form onSubmit={handleSubmit}>
+      <div class="form group">
+        <label for="zipcodeInput">ZIP Code</label>
+        <input type="number" class="form-control" id="inputZIP" placeholder="Enter ZIP"></input>
+        <button id="submitZIP" type="submit">Enter</button>
       </div>
     </form>
 

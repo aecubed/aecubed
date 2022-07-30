@@ -4,11 +4,9 @@ const apiController = require('./apiController');
 const express = require('express');
 const server = express();
 
-// const contact = require('./routes/contact_us')
-// const map = require('./routes/map')
-// const about = require('./routes/about')
-
-
+// const contactRouter = require('./routes/contact_us')
+const mapRouter = require('./routes/map')
+// const aboutRouter = require('./routes/about')
 
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
