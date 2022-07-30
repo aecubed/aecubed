@@ -1,9 +1,15 @@
 "use strict"
 const express = require('express');
-let router = express.Router();
+const apiController = require('../apiController');
+const mapRouter = express.Router();
+
+mapRouter.get('/',
+  apiController.directGeocode, apiController.getWeatherData,
+  (req, res) => {
+    res.status(200).json(res.locals.yearData);
+  }
+)
 
 
 
-
-
-module.exports = router; 
+module.exports = mapRouter; 
