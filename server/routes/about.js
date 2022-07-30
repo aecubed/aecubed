@@ -1,8 +1,8 @@
 "use strict"
 const express = require('express');
-let router = express.Router();
+const aboutRouter = express.Router();
 
 
 
 
-module.exports = router; 
+module.exports = aboutRouter; 
