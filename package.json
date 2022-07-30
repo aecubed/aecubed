@@ -23,7 +23,7 @@
 		"eslint-plugin-react": "^7.21.5",
 		"file-loader": "^6.2.0",
 		"html-webpack-plugin": "^5.5.0",
-		"nodemon": "^1.18.9",
+		"nodemon": "^1.19.4",
 		"style-loader": "^3.3.1",
 		"webpack": "^5.64.1",
 		"webpack-cli": "^4.9.1",
