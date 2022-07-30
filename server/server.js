@@ -5,7 +5,7 @@ const express = require('express');
 const server = express();
 
 // const contactRouter = require('./routes/contact_us')
-// const mapRouter = require('./routes/map')
+const mapRouter = require('./routes/map')
 // const aboutRouter = require('./routes/about')
 
 server.use(express.json());
@@ -16,7 +16,7 @@ server.get('/', (req, res, next) => {
 });
 
 // server.use('/contact', contactRouter);
-// server.use('/map', mapRouter);
+server.use('/map', mapRouter);
 // server.use('/about', aboutRouter);
 
 // catch-all route handler for any requests to an unknown route
