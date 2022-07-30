@@ -19,7 +19,7 @@ server.use('/about', about);
 
 
 server.get('/', (req, res, next) => {
-  res.send('Hello World')
+  res.sendFile(path.resolve(__dirname, '../public/index.html'))
 });
 
 
