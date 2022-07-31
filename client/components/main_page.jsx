@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
-import handleSubmit from './weather_data';
 
 const Main = () => {
 //State for main energy sources. Default to best energy sources for the top 3 locations overall.
