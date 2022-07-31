@@ -9,6 +9,7 @@
 //Parent container for energy orbs
 .orbs-parent{
     display: flex;
+    flex-wrap: wrap;
     background-color: #29B675;
     border: 3px;
     border-color: red;
