@@ -1,5 +1,9 @@
 @import "~bootstrap/scss/bootstrap";
 
+#about-main{
+    display: grid;
+}
+
 .test{
     background-color: $indigo-100;
 }

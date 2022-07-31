@@ -9,8 +9,8 @@ const App = () => {
     <div className = 'main_page'>
       <BrowserRouter>
         <Routes>
-          <Route path = '/' element={<Main/>}/>
-          <Route path = '/about' element={<About/>}/>
+          <Route path = '/about' element={<Main/>}/>
+          <Route path = '/' element={<About/>}/>
         </Routes>
       </BrowserRouter>
     </div>
