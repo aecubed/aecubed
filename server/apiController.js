@@ -1,9 +1,11 @@
 const axios = require('axios');
 const { text } = require('express');
+const fs = require('fs');
+require('dotenv').config();
 
 const apiController = {};
 
-const APIkey = 'd3767e1fa9e2f79cbac2ff22817e9251';
+const APIkey = process.env.APIkey;
 const countrycode = 'US'; // refers to ISO codes
 
 apiController.directGeocode = (req, res, next) => {
@@ -32,6 +34,7 @@ apiController.getWeatherData = (req, res, next) => {
     precipitation: 0,
     clouds: 0
   }
+
   const kelvintocelsius = (temp) => {
     return temp - 273.15;
   }
@@ -39,15 +42,20 @@ apiController.getWeatherData = (req, res, next) => {
   axios.get(`https://history.openweathermap.org/data/2.5/aggregated/year?lat=${lat}&lon=${lon}&appid=${APIkey}`)
     .then(response => response.data.result)
     .then(data => {
-      data.forEach(elem => {
-        mean.temp += kelvintocelsius(elem.temp.mean)/365,
-        mean.pressure += elem.pressure.mean/365,
-        mean.humidity += elem.humidity.mean/365,
-        mean.wind += elem.wind.mean/365,
-        mean.precipitation += elem.precipitation.mean/365,
-        mean.clouds += elem.clouds.mean/365
-      })
-      res.locals.weatherData = mean;
+      // data.forEach(elem => {
+      //   mean.temp += kelvintocelsius(elem.temp.mean)/365,
+      //   mean.pressure += elem.pressure.mean/365,
+      //   mean.humidity += elem.humidity.mean/365,
+      //   mean.wind += elem.wind.mean/365,
+      //   mean.precipitation += elem.precipitation.mean/365,
+      //   mean.clouds += elem.clouds.mean/365
+      // })
+      res.locals.weatherData = JSON.stringify(data, null, 2);
+      console.log(res.locals.weatherData);
+      fs.writeFile('./dump/weatherData.json', res.locals.weatherData, (err) => {
+        if (err) throw err;
+        console.log('weatherData.json write SUCCESS');
+      });
       return next();
     })
     .catch(err => next({

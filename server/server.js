@@ -1,6 +1,5 @@
 const path = require('path');
 const PORT = 3000;
-const apiController = require('./apiController');
 const express = require('express');
 const server = express();
 
