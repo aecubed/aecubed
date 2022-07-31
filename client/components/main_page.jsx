@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
-import handleSubmit from './weather_data';
 
 const Main = () => {
 //State for main energy sources. Default to best energy sources for the top 3 locations overall.
@@ -13,22 +12,25 @@ const Main = () => {
   const [secondLocation, setSecondLocation] = useState("Location");
   const [thirdLocation, setThirdLocation] = useState("Location");
 
+//State for the 7 data points for each location
+  const [temperatureOrb, setTemperatureOrb] = useState()
+
 //methods to handle events
-  const submitZIP = async (e) => {
-    try{
-      e.preventDefault();
-      // const params = e.target.id
-      const postRequest = {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-          zipCode: params
-        })
-      }
-    }
-    catch(err){
-      console.log(err);
-    }
+  
+  //handle user input of zip code
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const zipcode = e.target.value;
+  
+    axios.post('/map', {zipcode: zipcode})
+      .then(response => response.data)
+      .then(data => {
+        const {temp, pressure, humidity, wind, precipitation, cloud} = data;
+      })
+      .catch((err) => { next({
+        log: 'failed to receive weather data',
+        message: 'failed recieve weather data'
+      })})
   }
 
 
