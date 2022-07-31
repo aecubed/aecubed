@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
+import handleSubmit from './weather_data';
 
 const Main = () => {
 //State for main energy sources. Default to best energy sources for the top 3 locations overall.
@@ -12,60 +13,75 @@ const Main = () => {
   const [secondLocation, setSecondLocation] = useState("Location");
   const [thirdLocation, setThirdLocation] = useState("Location");
 
+//methods to handle events
+  const submitZIP = async (e) => {
+    try{
+      e.preventDefault();
+      // const params = e.target.id
+      const postRequest = {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          zipCode: params
+        })
+      }
+    }
+    catch(err){
+      console.log(err);
+    }
+  }
 
 
 return (
-  //Navbar
   <>
-
+{/* style="background-color:#29B675" */}
     {/* Navbar */}
-      <nav class="navbar navbar-light" style="background-color:#29B675;">
-        <a class="navbar-brand" href="#">AE^3</a>
+      <nav className="navbar navbar-light">
+       <a className="navbar-brand" href="#">AE^3</a>
+       <Link to='/about'></Link>
       </nav>
 
+
     {/* Energy Selection */}
-      <div class="btn-group" role="group" aria-label="Choose Energy Source">
-        <button type="button" class="btn solar-btn">Solar</button>
-        <button type="button" class="btn wind-btn">Wind</button>
-        <button type="button" class="btn rain-btn">Rain</button>
+      <div className="btn-group" role="group" aria-label="Choose Energy Source">
+        <button type="button" className="btn solar-btn">Solar</button>
+        <button type="button" className="btn wind-btn">Wind</button>
+        <button type="button" className="btn rain-btn">Rain</button>
       </div>
+
+
     {/* Enter ZIP */}
-
-    {/* Filters */}
-    <div>
-
-    </div>
-
+    <form onSubmit={handleSubmit}>
+      <div class="form group">
+        <label for="zipcodeInput">ZIP Code</label>
+        <input type="number" class="form-control" id="inputZIP" placeholder="Enter ZIP"></input>
+        <button id="submitZIP" type="submit">Enter</button>
+      </div>
+    </form>
 
 
     {/* Location Table */}
-    <table class="table">
+    <table className="table">
       <thead>
-        <th scope="col">Locations</th>
-        <th scope="col">Best Energy</th>
+        <tr>
+          <th scope="col">Location</th>
+          <th scope="col">Best Energy</th>
+        </tr>
       </thead>
       <tbody>
         <tr>
-          <th scope="row">Location1</th>
-          <th scope="row">Energy Source</th>
-        </tr>
-        <tr>
-          <th scope="row">Location2</th>
-          <th scope="row">Energy Source</th>
-        </tr>
-        <tr>
-          <th scope="row">Location3</th>
-          <th scope="row">Energy Source</th>
+          <td scope="row">Location</td>
+          <td scope="row">Energy Source</td>
         </tr>
       </tbody>
     </table>
 
 
     {/* Energy Orbs */}
-    <div class="orbs-parent">
-      <div class="solar-orb">Solar</div>
-      <div class="wind-orb">Wind</div>
-      <div class="rain-orb">Rain</div>
+    <div className="orbs-parent">
+      <div className="solar-orb">Solar</div>
+      <div className="wind-orb">Wind</div>
+      <div className="rain-orb">Rain</div>
     </div>
 
   </>
