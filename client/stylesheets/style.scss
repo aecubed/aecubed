@@ -1,82 +1,223 @@
 @import "~bootstrap/scss/bootstrap";
 
+$nav-theme-color: rgb(0, 0, 130);
+
+.body{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
 
 .navbar{
-    background-color:#29B675
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+    padding: 1px;
+    text-decoration: none;
+    margin: auto;
+
 };
+
+
+.navbar-about, .navbar-main {
+  text-decoration: none;
+  color: black;
+}
+
+//Removes spinner control (arrows) from zip code input
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none; 
+    margin: 0; 
+}
     
+
 
 //Parent container for energy orbs
 .orbs-parent{
-    display: flex;
-    flex-wrap: wrap;
-    background-color: #29B675;
-    border: 3px;
-    border-color: red;
+  align-self: center;
+  display: grid;
+  grid-column-start: 1;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  padding-top: 25px;
+  grid-template-columns: [first] 200px [line2] 200px [line3] 200px;
+  grid-template-rows: [row1] 200px [row2] 200px [row3] 200px;
+  text-align: center;
+  vertical-align: middle;
+  height: 600px;
+  width: 600px;
+  background-color: #F7F7EE;
+  border-radius: 20%;
+  border:2px solid black;
   }
   
   //style for solar orb resize
-  .solar-orb{
-    position: relative;
-    top: calc(50% - 150px);
-    left: calc(50% - 150px);
-    width: 300px;
-    height: 300px;
+  .temp-orb{
+    justify-self: center;
+    padding-top: 20px;
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: row2;
+    grid-row-end: row3;
+    width: 150px;
+    height: 150px;
     resize: both;
     border-radius: 50%;
     box-shadow:
-      inset 0 0 50px #fff,
-      inset 20px 0 80px #f0f,
-      inset -20px 0 80px #0ff,
-      inset 20px 0 300px #f0f,
-      inset -20px 0 300px #0ff,
-      0 0 50px #fff,
-      -10px 0 80px #f0f,
-      10px 0 80px #0ff;
+    inset 0 0 30px #fff,
+      inset 20px 0 80px #FF4100,
+      inset -20px 0 80px #FFCF63,
+      inset 20px 0 300px #FF4100,
+      inset -20px 0 300px #FFCF63,
+      0 0 10px #fff,
+      -10px 0 30px #FF4100,
+      10px 0 30px #FFCF63;
   }
   
   //style for wind orb resize
-  .wind-orb{
-    position: relative;
-    top: calc(50% - 150px);
-    left: calc(50% - 150px);
-    width: 300px;
-    height: 300px;
+  .humidity-orb{
+    justify-self: center;
+    padding-top: 20px;
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: row3;
+    grid-row-end: row3;
+    width: 150px;
+    height: 150px;
     resize: both;
     border-radius: 50%;
     box-shadow:
-      inset 0 0 50px #fff,
-      inset 20px 0 80px #f0f,
-      inset -20px 0 80px #0ff,
-      inset 20px 0 300px #f0f,
-      inset -20px 0 300px #0ff,
-      0 0 50px #fff,
-      -10px 0 80px #f0f,
-      10px 0 80px #0ff;
+      inset 0 0 30px #fff,
+      inset 20px 0 80px rgb(106, 137, 193),
+      inset -20px 0 80px rgb(119, 129, 146),
+      inset 20px 0 300px rgb(106, 137, 193),
+      inset -20px 0 300px rgb(119, 129, 146),
+      0 0 10px #fff,
+      -10px 0 30px rgb(106, 137, 193),
+      10px 0 30px rgb(119, 129, 146);
   }
   
   //style for rain orb
-  .rain-orb{
-    position: relative;
-    top: calc(50% - 150px);
-    left: calc(50% - 150px);
-    width: 300px;
-    height: 300px;
+  .wind-orb{
+    justify-self: center;
+    padding-top: 20px;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: row2;
+    grid-row-end: row3;
+    width: 150px;
+    height: 150px;
     resize: both;
     border-radius: 50%;
     box-shadow:
-      inset 0 0 50px #fff,
-      inset 20px 0 80px #f0f,
-      inset -20px 0 80px #0ff,
-      inset 20px 0 300px #f0f,
-      inset -20px 0 300px #0ff,
-      0 0 50px #fff,
-      -10px 0 80px #f0f,
-      10px 0 80px #0ff;
+    inset 0 0 30px #fff,
+      inset 20px 0 80px #e5e5e5,
+      inset -20px 0 80px rgb(97, 107, 125),
+      inset 20px 0 300px #e5e5e5,
+      inset -20px 0 300px rgb(97, 107, 125),
+      0 0 10px #fff,
+      -10px 0 30px #e5e5e5,
+      10px 0 30px rgb(97, 107, 125);
   }
 
-  .about-container{
+   //style for precip orb
+   .precip-orb{
+    justify-self: center;
+    padding-top: 20px;
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: row1;
+    grid-row-end: row2;
+    width: 150px;
+    height: 150px;
+    resize: both;
+    border-radius: 50%;
+    box-shadow:
+      inset 0 0 30px #fff,
+      inset 20px 0 80px #141444,
+      inset -20px 0 80px #a0b6c4,
+      inset 20px 0 300px #141444,
+      inset -20px 0 300px #a0b6c4,
+      0 0 10px #fff,
+      -10px 0 30px #141444,
+      10px 0 30px #a0b6c4;
+  }
+
+  .cloud-orb{
+    justify-self: center;
+    padding-top: 20px;
+    grid-column-start: 3;
+    grid-column-end: 3;
+    grid-row-start: row2;
+    grid-row-end: row3;
+    width: 150px;
+    height: 150px;
+    resize: both;
+    border-radius: 50%;
+    box-shadow:
+      inset 0 0 30px #fff,
+      inset 20px 0 80px #6d6d6d,
+      inset -20px 0 80px #928dc9,
+      inset 20px 0 300px #6d6d6d,
+      inset -20px 0 300px #928dc9,
+      0 0 10px #fff,
+      -10px 0 30px #6d6d6d,
+      10px 0 30px #928dc9;
+  }
+
+  .table.table-dark{
+    border: rgb(0, 0, 130);
+    grid-column-start: 2;
+    grid-row-start: row2;
+    place-self: center;
     display: grid;
   }
+
   
+
+
+  // #about-container{
+  //   display: grid;
+  //   grid-template-rows: repeat(4, 500px);
+  //   grid-template-columns: repeat(3, 1fr);
+  //   // background-image: url(../assets/Wind-farm-turbines-WV.jpeg);
+  //   height: 100%;
+  //   overflow-x: hidden;
+  // }
   
+#goal{
+  display: grid;
+  background-color: black;
+  grid-template-columns: repeat(2, 1fr);
+  color: white;
+  // background-image: url(../assets/about-banner.png);
+}
+
+// .goal-container{
+//   grid-area: 1 / 1 / 1 / 1;
+// }
+
+// .paragraph1{
+//   grid-area: 2 / 1 / 2 / 1;
+// }
+.how-flex{
+  display: flex;
+  align-items: center;
+  align-content: center;
+}
+
+#how-we-did-it{
+  grid-area: 2 / 1 / 2 / 4;
+  display: grid;
+  justify-content: center;
+  grid-template-columns: 1fr 1fr;
+}
+
+#more-info{
+  grid-area: 3 / 1 / 3 / 4;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.paragraph1{
+  grid-area: 1 / 1 / 1 / 1;
+}
