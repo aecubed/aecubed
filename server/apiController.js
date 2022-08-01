@@ -59,7 +59,7 @@ apiController.getWeatherData = (req, res, next) => {
 }
 
 apiController.comparedDetails = (req, res, next) => {
-  const {temp, humidity, wind} = res.locals.weatherData
+  const { temp, humidity, wind } = res.locals.meanData
   const poor = 'Poor performance';
   const okay = 'Okay performance'
   const optimum = 'Optimum performance';
