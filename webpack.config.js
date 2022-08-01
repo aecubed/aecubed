@@ -84,7 +84,7 @@ module.exports = {
     port: 8080,
     compress: true,
     hot: true,
-    proxy: {'/map/**': {
+    proxy: {'/**': {
       target: 'http://localhost:3000', 
       secure: false
     }}

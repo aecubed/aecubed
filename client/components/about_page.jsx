@@ -13,7 +13,7 @@ const About = () => {
        <div>
 
        <div className='about-turbines-img'>
-        <img src='/public/client/assets/Wind-farm-turbines-WV.jpeg'></img>
+        {/* <img src='/public/client/assets/Wind-farm-turbines-WV.jpeg'></img> */}
        </div>
 
        <section id='how-we-did-it'>

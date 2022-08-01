@@ -3,10 +3,11 @@ const express = require('express');
 const apiController = require('../apiController');
 const mapRouter = express.Router();
 
-mapRouter.get('/',
+mapRouter.post('/',
   apiController.directGeocode, apiController.getWeatherData, apiController.comparedDetails,
   (req, res) => {
-    res.status(200).json({ 'average': res.locals.meanData,
+    res.status(200).json({ 'name': res.locals.name,
+                           'average': res.locals.meanData,
                            'performance': res.locals.performance });
   }
 )
