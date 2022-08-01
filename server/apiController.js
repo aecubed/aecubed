@@ -127,4 +127,37 @@ apiController.getWeatherData = (req, res, next) => {
 //   }
 // }
 
+apiController.comparedDetails = (req, res, next) => {
+  const { temp, humidity, wind } = res.locals.meanData
+  const poor = 'Poor Performance';
+  const okay = 'Okay Performance'
+  const optimum = 'Optimum Performance';
+  const extreme = 'Detoriating Conditions';
+  const undetermined = 'Conclusion cannot be made at this time';
+  const performance = {
+    performanceSolar : '',
+    performanceTurbine : ''
+  };
+  // wind turbine logic
+  if (wind < 3.5) performance.performanceTurbine = poor;
+  else if (wind >= 3.5 && wind < 9) performance.performanceTurbine = okay;
+  else if (wind >= 10 && wind <= 15 ) performance.performanceTurbine = optimum;
+  else if (wind > 15 && wind < 25) performance.performanceTurbine = okay;
+  else if (wind > 25) performance.performanceTurbine = extreme;
+  else performance.performanceTurbine = undetermined;
+
+  //solar panel logic
+  if (temp < 59 ) performance.performanceSolar = poor; 
+  else if (temp > 95 && humidity > 40) performance.performanceSolar = `${poor} and ${extreme}`;
+  else if (temp >= 59 && temp <= 95 && humidity < 40) performance.performanceSolar = optimum;
+  else if (temp > 95 && humidity < 40) performance.performanceSolar = extreme;
+  else performance.performanceSolar = undetermined;
+
+
+  // calculate percipitation rate 
+
+  res.locals.performance = performance; 
+  return next()
+}
+
 module.exports = apiController

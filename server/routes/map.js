@@ -4,9 +4,10 @@ const apiController = require('../apiController');
 const mapRouter = express.Router();
 
 mapRouter.get('/',
-  apiController.directGeocode, apiController.getWeatherData,
+  apiController.directGeocode, apiController.getWeatherData, apiController.comparedDetails,
   (req, res) => {
-    res.status(200).json(res.locals.meanData);
+    res.status(200).json({ 'average': res.locals.meanData,
+                           'performance': res.locals.performance });
   }
 )
 
