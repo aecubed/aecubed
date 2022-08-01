@@ -2,15 +2,19 @@ import React, { useState, useEffect } from 'react';
 
 const About = () => {
   return (
-    <div>
+    <div className='about-page'>
 
        <div id='goal'>
          <div className='goal-container'>Our Goal
            <p className='paragraph1'>Renewable energy provides sustainability as well as increased affordability, and there is a global initiative to expand renewable energy sources. However, they lack consistent energy generation. Our goal is to provide ideal locations for renewable energy expansion to pave the path for a sustainable future.</p>
          </div>   
        </div>
-
+       
        <div>
+
+       <div className='about-turbines-img'>
+        {/* <img src='/public/client/assets/Wind-farm-turbines-WV.jpeg'></img> */}
+       </div>
 
        <section id='how-we-did-it'>
          <div className='how-we-did-it-container'>How We Did It

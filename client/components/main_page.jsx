@@ -13,8 +13,12 @@ const Main = () => {
   const [secondLocation, setSecondLocation] = useState("Location");
   const [thirdLocation, setThirdLocation] = useState("Location");
 
-//State for the zip code input
+//State for Performances
+  const [performanceSolar, setPerformanceSolar] = useState()
+  const [performanceTurbine, setPerfomanceTurbine] = useState()
+//State for the zip code input and Location of zip
   const[zipCode, setZipCode] = useState("");
+  const[location, setLocation] = useState("");
 //State for the 5 data points for each location
   const [temperatureOrb, setTemperatureOrb] = useState();
   const [humidityOrb, setHumidityOrb] = useState();
@@ -27,18 +31,27 @@ const Main = () => {
   //handle user input of zip code
   const handleSubmit = (e) => {
     e.preventDefault();
-    const zipcode = e.target.value;
-  
-    axios.post('/map', {zipcode: zipcode})
+    console.log('invoked handle submit')
+    axios.post('/map', {zipcode: zipCode})
       .then(response => response.data)
       .then(data => {
         console.log(data)
-        const {temp, humidity, wind, precipitation, cloud} = data;
+        const { name } = data.name;
+        const { temp, humidity, wind, precipitation, clouds } = data.average;
+        const { performanceSolar, performanceTurbine } = data.performance;
+        setTemperatureOrb(temp)
+        setHumidityOrb(humidity)
+        setWindOrb(wind)
+        setPrecipitationOrb(precipitation)
+        setCloudOrb(clouds)
+        setPerfomanceTurbine(performanceTurbine)
+        setPerformanceSolar(performanceSolar)
+        setLocation(name);
       })
-      .catch((err) => { next({
+      .catch((err) => { return {
         log: 'failed to receive weather data',
         message: 'failed recieve weather data'
-      })})
+      }})
   }
 
 
@@ -56,25 +69,42 @@ return (
 
     {/* Enter ZIP */}
     <div className="form group">
-      <form onSubmit={e => {handleSubmit(e)}}>
+      <form onSubmit={handleSubmit}>
         <label htmlFor="zipcodeInput">ZIP Code</label>
         <input type="number" className="form-control" id="inputZIP" placeholder="Enter ZIP" value={zipCode} onChange={e => {setZipCode(e.target.value)}}></input>
-        <input id="submitZIP" type="submit" value='Enter'></input>
+        <button id="submitZIP" type="submit">Enter</button>
       </form>
     </div>
 
 
     {/* Location Table */}
-    <table className="table table-dark">
+    <table className="table table-bordered">
       <thead>
         <tr>
           <th scope="col">Location</th>
           <th scope="col">Best Energy</th>
+          <th><Link to='/about'>Performance</Link></th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td scope="row">Location</td>
+          <td scope="row">{location}</td>
+          <td scope="row">Energy Source</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table className="table table-light">
+      <thead>
+        <tr>
+          <th scope="col">Location</th>
+          <th scope="col">Best Energy</th>
+          <th><Link to='/about'>Performance</Link></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td scope="row">{location}</td>
           <td scope="row">Energy Source</td>
         </tr>
       </tbody>
@@ -84,13 +114,25 @@ return (
     {/* Energy Orbs */}
     <div className="orbs-parent">
       <div className="temp-orb">
-        <div>Temperature</div>
+        <div>Temperature(°C)</div>
         <div id='temp-value'>{temperatureOrb}</div>
       </div>
-      <div className="humidity-orb">Humidity</div>
-      <div className="wind-orb">Wind</div>
-      <div className="precip-orb">Precipitation</div>
-      <div className="cloud-orb">Clouds</div>
+      <div className="humidity-orb">
+       <div>Humidity(%)</div>
+       <div id='humidity-value'>{humidityOrb}</div>
+      </div>
+      <div className="wind-orb">
+        <div>Wind(m/s)</div>
+        <div id='wind-value'>{windOrb}</div>
+      </div>
+      <div className="precip-orb">
+        <div>Precipitation(mm)</div>
+        <div id='precip-value'>{precipitationOrb}</div>
+      </div>
+      <div className="cloud-orb">
+        <div id='clouds-value'>Clouds</div>
+        <div>{cloudOrb}</div>
+      </div>
     </div>
 
     </div>
