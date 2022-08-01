@@ -8,7 +8,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'public'),
 		filename: 'bundle.js',
-    publicPath: '/public'
+    publicPath: '/'
   },
   module: {
     rules: [
@@ -69,7 +69,7 @@ module.exports = {
     port: 8080,
     compress: true,
     hot: true,
-    proxy: {'/**': {
+    proxy: {'/map/**': {
       target: 'http://localhost:3000', 
       secure: false
     }}
