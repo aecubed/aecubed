@@ -8,7 +8,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'public'),
 		filename: 'bundle.js',
-    publicPath: '/'
+    publicPath: '/public'
   },
   module: {
     rules: [
@@ -73,7 +73,7 @@ module.exports = {
   devServer: {
     static: {
       directory: path.resolve(__dirname, 'public'),
-      publicPath: '/'
+      publicPath: '/public'
     },
     port: 8080,
     compress: true,
