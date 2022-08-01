@@ -92,14 +92,12 @@ $nav-theme-color: rgb(0, 0, 130);
     grid-template-columns: repeat(3, 1fr);
     background-image: url(../assets/Wind-farm-turbines-WV.jpeg);
   }
-
-  // #goal{
-  //   background-image: url();
-  // }
   
 #goal{
   grid-area: 1 / 1 / 2 / 4;
   background-color: red;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 .goal-container{
@@ -108,10 +106,14 @@ $nav-theme-color: rgb(0, 0, 130);
 
 #how-we-did-it{
   grid-area: 2 / 1 / 2 / 4;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 #more-info{
   grid-area: 3 / 1 / 3 / 4;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 .paragraph1{
