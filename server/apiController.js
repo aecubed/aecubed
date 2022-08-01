@@ -3,7 +3,7 @@ const path = require('path');
 // const { text } = require('express');
 const fs = require('fs');
 require('dotenv').config();
-const { weatherModel } = require('./apiModel');
+const weatherModel = require('./apiModel');
 
 const apiController = {};
 
@@ -28,31 +28,11 @@ apiController.directGeocode = (req, res, next) => {
 apiController.getWeatherData = (req, res, next) => {
   const { lat, lon } = res.locals.geocode;
   // temp, pressure, humidity, wind, precipitation, clouds, sunshine_hours
-  const mean = {
-    temp: 0,
-    pressure: 0,
-    humidity: 0,
-    wind: 0,
-    precipitation: 0,
-    clouds: 0
-  }
-
-  const kelvintocelsius = (temp) => {
-    return temp - 273.15;
-  }
 
   axios.get(`https://history.openweathermap.org/data/2.5/aggregated/year?lat=${lat}&lon=${lon}&appid=${APIkey}`)
     .then(response => response.data.result)
     .then(data => {
-      data.forEach(elem => {
-        mean.temp += kelvintocelsius(elem.temp.mean)/365,
-        mean.pressure += elem.pressure.mean/365,
-        mean.humidity += elem.humidity.mean/365,
-        mean.wind += elem.wind.mean/365,
-        mean.precipitation += elem.precipitation.mean/365,
-        mean.clouds += elem.clouds.mean/365
-      })
-      res.locals.meanData = mean;
+      res.locals.weatherData = data;
       // console.log(res.locals.weatherData);
       // const filepath = path.join(__dirname, '/dump/weatherData.json')
       // fs.writeFileSync(filepath, res.locals.weatherData);
@@ -64,71 +44,80 @@ apiController.getWeatherData = (req, res, next) => {
     }));
 }
 
-// apiController.saveData = async (req, res, next) => {
-//   try {
-//     const arr = res.locals.weatherData;
-//     console.log(arr);
-//     await arr.forEach(elem => {
-//       weatherModel.create(elem);
-//     })
-//     // await weatherModel.create(res.locals.weatherData);
-//     return next();
-//   } catch (error) {
-//     console.error(error.message);
-//     return next({
-//       log: 'apiController.saveData failed',
-//       message: 'failed to save weatherData to database'
-//     })
-//   }
-// }
+apiController.saveData = async (req, res, next) => {
+  try {
+    await weatherModel.create(res.locals.weatherData);
+    return next();
+  } catch (error) {
+    console.error(error.message);
+    return next({
+      log: 'apiController.saveData failed',
+      message: 'failed to save weatherData to database'
+    })
+  }
+}
 
-// apiController.queryData = async (req, res, next) => {
+apiController.queryData = async (req, res, next) => {
 
-//   const agg = [
-//     {
-//       '$group': {
-//         '_id': '$month', 
-//         'tempAvg': {
-//           '$avg': '$temp.mean'
-//         }, 
-//         'pressureAvg': {
-//           '$avg': '$pressure.mean'
-//         }, 
-//         'humidityAvg': {
-//           '$avg': '$humidity.mean'
-//         }, 
-//         'windAvg': {
-//           '$avg': '$wind.mean'
-//         }, 
-//         'precipitationAvg': {
-//           '$avg': '$precipitation.mean'
-//         }, 
-//         'cloudsAvg': {
-//           '$avg': '$clouds.mean'
-//         }
-//       }
-//     }, 
-//     {
-//       '$sort': {
-//         '_id': 1
-//       }
-//     }
-//   ];
+  const agg = [
+    {
+      '$group': {
+        '_id': '$month', 
+        'temp': {
+          '$avg': '$temp.mean'
+        }, 
+        'pressure': {
+          '$avg': '$pressure.mean'
+        }, 
+        'humidity': {
+          '$avg': '$humidity.mean'
+        }, 
+        'wind': {
+          '$avg': '$wind.mean'
+        }, 
+        'precipitation': {
+          '$avg': '$precipitation.mean'
+        }, 
+        'clouds': {
+          '$avg': '$clouds.mean'
+        }
+      }
+    }, 
+    {
+      '$sort': {
+        '_id': 1
+      }
+    }
+  ];
+
+  const kelvintocelsius = (temp) => {
+    return temp - 273.15;
+  }
   
-//   try {
-//     const weatherDocs = await weatherModel.collection('weatherdatas').aggregate(agg)
-//     res.locals.meanData = weatherDocs;
-//     return next();
-//   } catch (error) {
-//     return next({
-//       log: 'apiController.queryData failed',
-//       message: 'failed to query weatherData'
-//     })
-//   }
-// }
+  try {
+    const weatherDocs = await weatherModel.aggregate(agg)
+    weatherDocs.forEach(elem => {
+      elem.temp = kelvintocelsius(elem.temp).toFixed(2);
+      elem.pressure = elem.pressure.toFixed(2);
+      elem.humidity = elem.humidity.toFixed(2);
+      elem.wind = elem.wind.toFixed(2);
+      elem.precipitation = elem.precipitation.toFixed(2);
+      elem.clouds = elem.clouds.toFixed(2);
+    })
+    res.locals.meanData = weatherDocs;
+    return next();
+  } catch (error) {
+    return next({
+      log: 'apiController.queryData failed',
+      message: 'failed to query weatherData'
+    })
+  }
+}
 
 apiController.comparedDetails = (req, res, next) => {
-  const { temp, humidity, wind } = res.locals.meanData
+  // get request from client about month info
+  const { month } = req.body;
+
   const poor = 'Poor Performance';
   const okay = 'Okay Performance'
   const optimum = 'Optimum Performance';
@@ -138,6 +127,9 @@ apiController.comparedDetails = (req, res, next) => {
     performanceSolar : '',
     performanceTurbine : ''
   };
+
+  const { temp, humidity, wind } = res.locals.meanData[month - 1];
+
   // wind turbine logic
   if (wind < 3.5) performance.performanceTurbine = poor;
   else if (wind >= 3.5 && wind < 9) performance.performanceTurbine = okay;
@@ -155,6 +147,7 @@ apiController.comparedDetails = (req, res, next) => {
 
 
   // calculate percipitation rate 
+
 
   res.locals.performance = performance; 
   return next()
