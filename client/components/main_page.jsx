@@ -57,39 +57,37 @@ const Main = () => {
 
 return (
   <>
+  <div className='main'>
   <div className='body'>
 
-    {/* Energy Selection */}
-      <div className="btn-group" role="group" aria-label="Choose Energy Source">
+ 
+      {/* <div className="btn-group" role="group" aria-label="Choose Energy Source">
         <button type="button" className="btn solar-btn">Solar</button>
         <button type="button" className="btn wind-btn">Wind</button>
         <button type="button" className="btn rain-btn">Rain</button>
-      </div>
+      </div> */}
 
 
-    {/* Enter ZIP */}
-    <div className="form group">
+    {/* Location Table */}
+    <div className='table-container'>
+
+    <div className="form-group">
       <form onSubmit={handleSubmit}>
         <label htmlFor="zipcodeInput">ZIP Code</label>
         <input type="number" className="form-control" id="inputZIP" placeholder="Enter ZIP" value={zipCode} onChange={e => {setZipCode(e.target.value)}}></input>
         <button id="submitZIP" type="submit">Enter</button>
       </form>
+
     </div>
-
-
-    {/* Location Table */}
-    <table className="table table-bordered">
-      <thead>
+    <table className="table table-dark">
+      <thead className='table1'>
         <tr>
           <th scope="col">Location</th>
-          <th scope="col">Best Energy</th>
-          <th><Link to='/about'>Performance</Link></th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td scope="row">{location}</td>
-          <td scope="row">Energy Source</td>
         </tr>
       </tbody>
     </table>
@@ -97,19 +95,18 @@ return (
     <table className="table table-light">
       <thead>
         <tr>
-          <th scope="col">Location</th>
-          <th scope="col">Best Energy</th>
-          <th><Link to='/about'>Performance</Link></th>
+          <th>Solar Performance</th>
+          <th>Wind Performance</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td scope="row">{location}</td>
-          <td scope="row">Energy Source</td>
+          <td scope="row">{performanceSolar}</td>
+          <td scope="row">{performanceTurbine}</td>
         </tr>
       </tbody>
     </table>
-
+    </div>
 
     {/* Energy Orbs */}
     <div className="orbs-parent">
@@ -130,13 +127,14 @@ return (
         <div id='precip-value'>{precipitationOrb}</div>
       </div>
       <div className="cloud-orb">
-        <div id='clouds-value'>Clouds</div>
+        <div id='clouds-value'>Cloud Cover(%)</div>
         <div>{cloudOrb}</div>
       </div>
     </div>
 
     </div>
 
+  </div>
   </>
 )
 };
