@@ -3,7 +3,7 @@ const path = require('path');
 // const { text } = require('express');
 const fs = require('fs');
 require('dotenv').config();
-const { weatherModel } = require('./apiModel');
+// const { weatherModel } = require('./apiModel');
 
 const apiController = {};
 
@@ -16,6 +16,7 @@ apiController.directGeocode = (req, res, next) => {
     .then(response => response.data)
     .then(data => {
       res.locals.geocode = {'lat': data.lat, 'lon': data.lon};
+      res.locals.name = {'name': data.name};
       return next();
     })
     .catch(err => next({
