@@ -1,9 +1,13 @@
 const axios = require('axios');
-const { text } = require('express');
+const path = require('path');
+// const { text } = require('express');
+const fs = require('fs');
+require('dotenv').config();
+const { weatherModel } = require('./apiModel');
 
 const apiController = {};
 
-const APIkey = 'd3767e1fa9e2f79cbac2ff22817e9251';
+const APIkey = process.env.APIkey;
 const countrycode = 'US'; // refers to ISO codes
 
 apiController.directGeocode = (req, res, next) => {
@@ -32,6 +36,7 @@ apiController.getWeatherData = (req, res, next) => {
     precipitation: 0,
     clouds: 0
   }
+
   const kelvintocelsius = (temp) => {
     return temp - 273.15;
   }
@@ -47,7 +52,10 @@ apiController.getWeatherData = (req, res, next) => {
         mean.precipitation += elem.precipitation.mean/365,
         mean.clouds += elem.clouds.mean/365
       })
-      res.locals.weatherData = mean;
+      res.locals.meanData = mean;
+      // console.log(res.locals.weatherData);
+      // const filepath = path.join(__dirname, '/dump/weatherData.json')
+      // fs.writeFileSync(filepath, res.locals.weatherData);
       return next();
     })
     .catch(err => next({
@@ -55,5 +63,68 @@ apiController.getWeatherData = (req, res, next) => {
       message: 'failed to fetch weather data'
     }));
 }
+
+// apiController.saveData = async (req, res, next) => {
+//   try {
+//     const arr = res.locals.weatherData;
+//     console.log(arr);
+//     await arr.forEach(elem => {
+//       weatherModel.create(elem);
+//     })
+//     // await weatherModel.create(res.locals.weatherData);
+//     return next();
+//   } catch (error) {
+//     console.error(error.message);
+//     return next({
+//       log: 'apiController.saveData failed',
+//       message: 'failed to save weatherData to database'
+//     })
+//   }
+// }
+
+// apiController.queryData = async (req, res, next) => {
+
+//   const agg = [
+//     {
+//       '$group': {
+//         '_id': '$month', 
+//         'tempAvg': {
+//           '$avg': '$temp.mean'
+//         }, 
+//         'pressureAvg': {
+//           '$avg': '$pressure.mean'
+//         }, 
+//         'humidityAvg': {
+//           '$avg': '$humidity.mean'
+//         }, 
+//         'windAvg': {
+//           '$avg': '$wind.mean'
+//         }, 
+//         'precipitationAvg': {
+//           '$avg': '$precipitation.mean'
+//         }, 
+//         'cloudsAvg': {
+//           '$avg': '$clouds.mean'
+//         }
+//       }
+//     }, 
+//     {
+//       '$sort': {
+//         '_id': 1
+//       }
+//     }
+//   ];
+  
+//   try {
+//     const weatherDocs = await weatherModel.collection('weatherdatas').aggregate(agg)
+//     res.locals.meanData = weatherDocs;
+//     return next();
+//   } catch (error) {
+//     return next({
+//       log: 'apiController.queryData failed',
+//       message: 'failed to query weatherData'
+//     })
+//   }
+// }
 
 module.exports = apiController
