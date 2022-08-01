@@ -79,12 +79,12 @@ module.exports = {
   devServer: {
     static: {
       directory: path.resolve(__dirname, 'public'),
-      publicPath: '/'
+      publicPath: '/public'
     },
     port: 8080,
     compress: true,
     hot: true,
-    proxy: {'/**': {
+    proxy: {'/map/**': {
       target: 'http://localhost:3000', 
       secure: false
     }}
