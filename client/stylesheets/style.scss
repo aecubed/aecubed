@@ -2,13 +2,28 @@
 
 $nav-theme-color: rgb(0, 0, 130);
 
+
+.main{
+  // display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 1fr 1fr;
+  background-color: rgb(48, 14, 81);
+  // background-image: url('https://media4.giphy.com/media/3og0IV7MOCfnm85iRa/giphy.gif?cid=790b761115367520aa6ca01b6a0e35f316f672cf0d8298c0&rid=giphy.gif&ct=g');
+  height: 100vh;
+  width: 100vw;
+  // background-repeat:no-repeat;
+  
+}
+
 .body{
   font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  padding-top: 25px;
+  color: white;
   display: grid;
-  grid-template-columns: 1fr 2fr;
-  padding-left: 30px;
+  margin-left: 30px;
+  width: 100vw;
+  height: 100vh;
 }
+
 
 .navbar{
   display: flex;
@@ -40,28 +55,19 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .btn-group{
-  margin-bottom: 10px;
   background-color: #29B675;
+  max-height: 50px;
 }
 
 
-//ZIP CODE FORM
-.form-group{
-  padding-left: 20px;
-  padding-top: 80px;
-  display: grid;
-  grid-column-start: 2;
-  grid-row-start: 2;
-  align-self: start;
-  justify-self: center;
-  text-align: center;
-  max-width: 500px;
-}
-    
 
 
 //Parent container for energy orbs
 .orbs-parent{
+  background-image: url('https://media4.giphy.com/media/3og0IV7MOCfnm85iRa/giphy.gif?cid=790b761115367520aa6ca01b6a0e35f316f672cf0d8298c0&rid=giphy.gif&ct=g');
+  font-family: 'Ibarra Real Nova', serif;
+  font-family: 'Lato', sans-serif;
+  font-size:medium;
   align-self: center;
   display: grid;
   grid-column-start: 1;
@@ -72,7 +78,6 @@ input[type=number]::-webkit-outer-spin-button {
   vertical-align: middle;
   height: 600px;
   width: 600px;
-  background-color: #F7F7EE;
   border-radius: 20%;
   border:2px solid black;
   }
@@ -80,7 +85,7 @@ input[type=number]::-webkit-outer-spin-button {
   //style for solar orb resize
   .temp-orb{
     justify-self: center;
-    padding-top: 20px;
+    padding-top: 25px;
     grid-column-start: 2;
     grid-column-end: 3;
     grid-row-start: row2;
@@ -103,7 +108,7 @@ input[type=number]::-webkit-outer-spin-button {
   //style for wind orb resize
   .humidity-orb{
     justify-self: center;
-    padding-top: 20px;
+    padding-top: 25px;
     grid-column-start: 2;
     grid-column-end: 3;
     grid-row-start: row3;
@@ -126,7 +131,7 @@ input[type=number]::-webkit-outer-spin-button {
   //style for rain orb
   .wind-orb{
     justify-self: center;
-    padding-top: 20px;
+    padding-top: 25px;
     grid-column-start: 1;
     grid-column-end: 2;
     grid-row-start: row2;
@@ -149,7 +154,7 @@ input[type=number]::-webkit-outer-spin-button {
    //style for precip orb
    .precip-orb{
     justify-self: center;
-    padding-top: 20px;
+    padding-top: 25px;
     grid-column-start: 2;
     grid-column-end: 3;
     grid-row-start: row1;
@@ -171,7 +176,7 @@ input[type=number]::-webkit-outer-spin-button {
 
   .cloud-orb{
     justify-self: center;
-    padding-top: 20px;
+    padding-top: 25px;
     grid-column-start: 3;
     grid-column-end: 3;
     grid-row-start: row2;
@@ -190,52 +195,47 @@ input[type=number]::-webkit-outer-spin-button {
       -10px 0 30px #6d6d6d,
       10px 0 30px #928dc9;
   }
-  .cloud-orb:hover {
-    cursor: pointer;
-    animation-name: bounce;
-    -moz-animation-name: bounce;
-  }
 
-  @keyframes bounce {
-    0%, 100%, 20%, 50%, 80% {
-      -webkit-transform: translateY(0);
-      -ms-transform:     translateY(0);
-      transform:         translateY(0)
-    }
-    40% {
-      -webkit-transform: translateY(-30px);
-      -ms-transform:     translateY(-30px);
-      transform:         translateY(-30px)
-    }
-    60% {
-      -webkit-transform: translateY(-15px);
-      -ms-transform:     translateY(-15px);
-      transform:         translateY(-15px)
-    }
-  }
-
-  .table {
-    margin-left: 50px;
+  .table-container{
+    display: grid;
+    grid-template-rows: repeat(2, 1fx);
+    justify-content: start;
     grid-column-start: 2;
+    grid-row-start: 1;
+    align-items: center;
+    align-content: center;
+  }
+
+  //ZIP CODE FORM
+.form-group{
+  margin-left: 50px;
+  margin-top: 80px;
+  align-self: start;
+  justify-self: center;
+  text-align: center;
+  max-width: 500px;
+}
+    
+  
+  .table.table-light{
+  margin-left: 50px;
+  place-self: center;
+  }
+
+  .table.table-dark{
+    margin-left: 50px;
+    margin-top: 20px;
+    grid-column-start: 1;
     grid-row-start: 2;
     place-self: center;
     max-width: 800px;
     text-align: center;
   }
-  thead {
+  .thead {
     font-weight: 400;
     background: #29B675;
   }
   
-  // .table tr td:last-child {
-  //   border-left: 5px solid #ffffff;
-  // }
-  // .table tr th:last-child {
-  //   border-left: 5px solid #ffffff;
-  // }
-
-
-
 
   // #about-container{
   //   display: grid;
@@ -295,7 +295,6 @@ input[type=number]::-webkit-outer-spin-button {
   grid-template-columns: 1fr 1fr;
   padding: 30px;
   margin: auto;
-  background-image: '/assets/background-cloud.png';
 }
 
 .how-we-did-it-container{

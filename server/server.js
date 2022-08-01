@@ -10,12 +10,12 @@ const mapRouter = require('./routes/map')
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 
-server.use('/assets', express.static(path.resolve(__dirname, '../client/assets')));
 
 server.get('/', (req, res, next) => {
   res.sendFile(path.resolve(__dirname, '../public/index.html'));
 });
 
+server.use('/assets', express.static(path.resolve(__dirname, '../client/assets')));
 
 // server.use('/contact', contactRouter);
 server.use('/map', mapRouter);
