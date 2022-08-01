@@ -73,9 +73,11 @@ return (
 
     {/* Energy Orbs */}
     <div className="orbs-parent">
-      <div className="solar-orb">Solar</div>
+      <div className="temp-orb">Temperature</div>
+      <div className="humidity-orb">Humidity</div>
       <div className="wind-orb">Wind</div>
-      <div className="rain-orb">Rain</div>
+      <div className="precip-orb">Precipitation</div>
+      <div className="cloud-orb">Clouds</div>
     </div>
 
   </>
