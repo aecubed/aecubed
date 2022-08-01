@@ -55,17 +55,17 @@ return (
 
 
     {/* Enter ZIP */}
-    <div className="form group">
+    <div className="form-group">
       <form onSubmit={e => {handleSubmit(e)}}>
-        <label htmlFor="zipcodeInput">ZIP Code</label>
+        <label htmlFor="zipcodeInput">Search for City</label>
         <input type="number" className="form-control" id="inputZIP" placeholder="Enter ZIP" value={zipCode} onChange={e => {setZipCode(e.target.value)}}></input>
-        <input id="submitZIP" type="submit" value='Enter'></input>
+        <input id="submitZIP" type="submit" value='Submit'></input>
       </form>
     </div>
 
 
     {/* Location Table */}
-    <table className="table table-dark">
+    <table className="table table-bordered">
       <thead>
         <tr>
           <th scope="col">Location</th>
