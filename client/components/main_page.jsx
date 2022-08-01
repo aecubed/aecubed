@@ -36,14 +36,6 @@ const Main = () => {
 
 return (
   <>
-{/* style="background-color:#29B675" */}
-    {/* Navbar */}
-      <nav className="navbar navbar-light">
-       <a className="navbar-brand" href="#">AE^3</a>
-       <Link to='/about'></Link>
-      </nav>
-
-
     {/* Energy Selection */}
       <div className="btn-group" role="group" aria-label="Choose Energy Source">
         <button type="button" className="btn solar-btn">Solar</button>

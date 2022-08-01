@@ -48,8 +48,17 @@ module.exports = {
       },
       {
         test: /\.png|svg|jpg|gif$/,
+        type: 'asset/resource',
         exclude: /node_modules/,
-        use: ['file-loader'],
+        use: [
+          {loader: 'file-loader',
+           options: {
+              name: '[name].[ext]',
+              publicPath: '/public',
+              outputPath: '/public/assets'
+            }
+          }
+        ],
       },
     ]
   },
