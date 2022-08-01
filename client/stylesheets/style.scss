@@ -13,6 +13,7 @@ $nav-theme-color: rgb(0, 0, 130);
 .navbar{
   display: flex;
   justify-content: flex-start;
+  height: auto;
   gap: 20px;
   padding: 1px;
   text-decoration: none;
@@ -21,8 +22,12 @@ $nav-theme-color: rgb(0, 0, 130);
   font-family: 'Lato', sans-serif;
 };
 
+#about-logo{
+  width: 130px;
+  height: 100px;
+}
 
-.navbar-about, .navbar-main {
+.navbar-about, .navbar-main{
   text-decoration: none;
   color: black;
 }
@@ -272,9 +277,15 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .about-turbines-img{
-  background-color: grey;
-  height:150px;
-  // background-image: url(..client/assets/Wind-farm-turbines-WV.jpeg);
+  background-color: rgb(160, 209, 247);
+  margin: auto;
+  height: 500px;
+  width: 100%;
+}
+
+#turbines{
+  height: 100%;
+  width: 100%;
 }
 
 #how-we-did-it{
@@ -283,6 +294,8 @@ input[type=number]::-webkit-outer-spin-button {
   justify-content: center;
   grid-template-columns: 1fr 1fr;
   padding: 30px;
+  margin: auto;
+  background-image: '/assets/background-cloud.png';
 }
 
 .how-we-did-it-container{

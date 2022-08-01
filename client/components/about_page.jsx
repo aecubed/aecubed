@@ -13,7 +13,7 @@ const About = () => {
        <div>
 
        <div className='about-turbines-img'>
-        {/* <img src='/public/client/assets/Wind-farm-turbines-WV.jpeg'></img> */}
+        <img id='turbines' src='/assets/turbines.png'></img>
        </div>
 
        <section id='how-we-did-it'>
@@ -21,6 +21,10 @@ const About = () => {
            <p className='paragraph2'>RLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Facilisis leo vel fringilla est ullamcorper eget nulla facilisi etiam. Nunc lobortis mattis aliquam faucibus purus in massa tempor. Magna eget est lorem ipsum dolor sit amet consectetur. Dui ut ornare lectus sit amet. Gravida neque convallis a cras semper auctor neque. Ornare arcu odio ut sem nulla pharetra diam. Fames ac turpis egestas sed tempus urna et pharetra. Consectetur adipiscing elit duis tristique sollicitudin nibh. Elit duis tristique sollicitudin nibh sit amet commodo nulla facilisi. Congue nisi vitae suscipit tellus mauris a diam maecenas. Nisi est sit amet facilisis. Nisl condimentum id venenatis a. Felis bibendum ut tristique et. Arcu vitae elementum curabitur vitae. Mi eget mauris pharetra et. At volutpat diam ut venenatis tellus in metus vulputate eu. Et odio pellentesque diam volutpat commodo. Habitant morbi tristique senectus et netus et malesuada fames ac. Lectus nulla at volutpat diam ut.</p>
          </div>
        </section>
+       
+       <div className='about-turbines-img'>
+        <img id='turbines' src='/assets/DolanFalls.jpeg'></img>
+       </div>
 
        <section id='more-info'>
          <div className='more-info-container'>More Information

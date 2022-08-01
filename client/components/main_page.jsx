@@ -78,7 +78,7 @@ return (
 
 
     {/* Location Table */}
-    <table className="table table-bordered">
+    <table className="table table-dark">
       <thead>
         <tr>
           <th scope="col">Location</th>

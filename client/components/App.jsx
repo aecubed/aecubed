@@ -9,8 +9,8 @@ const App = () => {
     <div className = 'main_page'>
       <BrowserRouter>
       <nav className="navbar navbar-light">
-       <div className="navbar-logo">Logo
-         <img src='../assets/AE3_Logo.png'></img>
+       <div className="navbar-logo">
+         <img id='about-logo' src='/assets/AE3_Logo.png'></img>
        </div>
        <Link to='/about' className='navbar-about'>About</Link>
        <Link to='/' className='navbar-main'>Main</Link>
