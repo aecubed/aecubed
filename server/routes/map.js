@@ -3,13 +3,14 @@ const express = require('express');
 const apiController = require('../apiController');
 const mapRouter = express.Router();
 
-mapRouter.get('/',
-  apiController.directGeocode, apiController.getWeatherData,
+mapRouter.post('/',
+  apiController.directGeocode, apiController.getWeatherData, apiController.comparedDetails,
   (req, res) => {
-    res.status(200).json(res.locals.weatherData);
+    res.status(200).json({ 'name': res.locals.name,
+                           'average': res.locals.meanData,
+                           'performance': res.locals.performance });
   }
 )
-
 
 
 module.exports = mapRouter; 

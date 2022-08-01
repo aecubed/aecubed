@@ -1,6 +1,5 @@
 const path = require('path');
 const PORT = 3000;
-const apiController = require('./apiController');
 const express = require('express');
 const server = express();
 
@@ -11,17 +10,13 @@ const mapRouter = require('./routes/map')
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 
-// server.use('/contact', contact);
-// server.use('/map', map);
-// server.use('/about', about);
-
 
 server.get('/', (req, res, next) => {
   res.sendFile(path.resolve(__dirname, '../public/index.html'));
 });
 
 // server.use('/contact', contactRouter);
-// server.use('/map', mapRouter);
+server.use('/map', mapRouter);
 // server.use('/about', aboutRouter);
 
 // catch-all route handler for any requests to an unknown route

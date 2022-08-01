@@ -57,6 +57,12 @@ module.exports = {
               publicPath: '/public',
               outputPath: '/public/assets'
             }
+          },
+          {
+            loader: 'url-loader',
+            options: {
+              limit:8192
+            }
           }
         ],
       },
@@ -73,7 +79,7 @@ module.exports = {
   devServer: {
     static: {
       directory: path.resolve(__dirname, 'public'),
-      publicPath: '/'
+      publicPath: '/public'
     },
     port: 8080,
     compress: true,
