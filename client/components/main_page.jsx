@@ -146,49 +146,5 @@ return (
 )
 };
 
-/** if (month === janurary) month = 1
- * else if(month === feburary) month = 2
- * else if(month === )
- * 
- * switch(month.toLowerCase) {
-  case 'janurary':
-    // month = 1;
-    break;
-  case 'feburary' :
-    // month = 2
-    break;
-  case 'march' :
-    // month = 3
-    break;
-  case 'april' :
-    // month = 4
-    break;
-  case 'may' :
-    // month = 5
-    break;
-  case 'june' :
-    // month = 6
-    break;
-  case 'july' :
-    // month = 7
-    break;
-  case 'august' :
-    // month = 8
-    break;
-  case 'september' :
-    // month = 9
-    break;
-  case 'october' :
-    // month = 10
-case 'november' :
-    // month = 11
-    break;
-case 'december' :
-    // month = 12
-    break;
-  default: month = 1
-    // code block
-}
-  */
 
 export default Main;
