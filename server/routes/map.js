@@ -5,10 +5,10 @@ const mapRouter = express.Router();
 
 mapRouter.post('/',
   apiController.directGeocode, apiController.getWeatherData, 
-  apiController.saveData, apiController.comparedDetails,
+  apiController.saveData, apiController.queryData, apiController.comparedDetails,
   (req, res) => {
     res.status(200).json({ 'name': res.locals.name,
-                           'average': res.locals.meanData,
+                           'average': res.locals.monthData,
                            'performance': res.locals.performance });
   }
 )

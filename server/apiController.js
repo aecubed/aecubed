@@ -16,7 +16,7 @@ apiController.directGeocode = (req, res, next) => {
     .then(response => response.data)
     .then(data => {
       res.locals.geocode = {'lat': data.lat, 'lon': data.lon};
-      res.locals.name = {'name': data.name};
+      res.locals.name = data.name;
       return next();
     })
     .catch(err => next({
@@ -118,32 +118,73 @@ apiController.queryData = async (req, res, next) => {
 apiController.comparedDetails = (req, res, next) => {
   // get request from client about month info
   const { month } = req.body;
+  let numMonth;
+  if (typeof month !== 'number') {
+    switch(month.toLowerCase()) {
+      case 'january':
+        numMonth = 1;
+        break;
+      case 'february' :
+        numMonth = 2
+        break;
+      case 'march' :
+        numMonth = 3
+        break;
+      case 'april' :
+        numMonth = 4
+        break;
+      case 'may' :
+        numMonth = 5
+        break;
+      case 'june' :
+        numMonth = 6
+        break;
+      case 'july' :
+        numMonth = 7
+        break;
+      case 'august' :
+        numMonth = 8
+        break;
+      case 'september' :
+        numMonth = 9
+        break;
+      case 'october' :
+        numMonth = 10
+      case 'november' :
+        numMonth = 11
+        break;
+      case 'december' :
+        numMonth = 12
+        break;
+      default: numMonth = 1
+    }
+  }
 
   const poor = 'Poor Performance';
   const okay = 'Okay Performance'
   const optimum = 'Optimum Performance';
-  const extreme = 'Detoriating Conditions';
+  const extreme = 'rapid detoriation of equipment';
   const undetermined = 'Conclusion cannot be made at this time';
   const performance = {
     performanceSolar : '',
     performanceTurbine : ''
   };
 
-  const { temp, humidity, wind } = res.locals.meanData[month - 1];
+  res.locals.monthData = res.locals.meanData[numMonth - 1];
+  const { temp, humidity, wind } = res.locals.monthData;
 
   // wind turbine logic
-  if (wind < 3.5) performance.performanceTurbine = poor;
-  else if (wind >= 3.5 && wind < 9) performance.performanceTurbine = okay;
-  else if (wind >= 10 && wind <= 15 ) performance.performanceTurbine = optimum;
-  else if (wind > 15 && wind < 25) performance.performanceTurbine = okay;
-  else if (wind > 25) performance.performanceTurbine = extreme;
+  if (wind < 2.5) performance.performanceTurbine = poor;
+  else if (wind >= 2.5 && wind < 3) performance.performanceTurbine = okay;
+  else if (wind >= 3 && wind <= 4 ) performance.performanceTurbine = optimum;
   else performance.performanceTurbine = undetermined;
 
   //solar panel logic
-  if (temp < 59 ) performance.performanceSolar = poor; 
-  else if (temp > 95 && humidity > 40) performance.performanceSolar = `${poor} and ${extreme}`;
-  else if (temp >= 59 && temp <= 95 && humidity < 40) performance.performanceSolar = optimum;
-  else if (temp > 95 && humidity < 40) performance.performanceSolar = extreme;
+  if (temp < 15 ) performance.performanceSolar = poor; 
+  else if (temp > 35 && humidity > 40) performance.performanceSolar = `${poor} and ${extreme}`;
+  else if (temp >= 15 && temp <= 35 && humidity < 70) performance.performanceSolar = optimum;
+  else if (temp >= 15 && temp <= 35 && humidity > 70) performance.performanceSolar = extreme;
+  else if (temp > 35 && humidity < 40) performance.performanceSolar = extreme;
   else performance.performanceSolar = undetermined;
 
 

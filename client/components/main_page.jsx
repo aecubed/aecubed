@@ -16,7 +16,8 @@ const Main = () => {
 //State for Performances
   const [performanceSolar, setPerformanceSolar] = useState()
   const [performanceTurbine, setPerfomanceTurbine] = useState()
-//State for the zip code input and Location of zip
+//State for the zip code input and Location of zip and month
+  const[month, setMonth] = useState("");
   const[zipCode, setZipCode] = useState("");
   const[location, setLocation] = useState("");
 //State for the 5 data points for each location
@@ -32,12 +33,14 @@ const Main = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('invoked handle submit')
-    axios.post('/map', {zipcode: zipCode})
+    console.log(month)
+    axios.post('/map', { zipcode: zipCode, month: month })
       .then(response => response.data)
       .then(data => {
-        console.log(data)
-        const { name } = data.name;
+        // console.log(data)
+        const name = data.name;
         const { temp, humidity, wind, precipitation, clouds } = data.average;
+        console.log(data.average)
         const { performanceSolar, performanceTurbine } = data.performance;
         setTemperatureOrb(temp)
         setHumidityOrb(humidity)
@@ -47,6 +50,8 @@ const Main = () => {
         setPerfomanceTurbine(performanceTurbine)
         setPerformanceSolar(performanceSolar)
         setLocation(name);
+        setZipCode("");
+        setMonth("");
       })
       .catch((err) => { return {
         log: 'failed to receive weather data',
@@ -75,6 +80,8 @@ return (
       <form onSubmit={handleSubmit}>
         <label htmlFor="zipcodeInput">ZIP Code</label>
         <input type="number" className="form-control" id="inputZIP" placeholder="Enter ZIP" value={zipCode} onChange={e => {setZipCode(e.target.value)}}></input>
+        <label htmlFor="monthInput">Month</label>
+        <input type="text" className="form-control" id="input-month" placeholder="Enter Month" value={month} onChange={e => {setMonth(e.target.value)}}></input>
         <button id="submitZIP" type="submit">Enter</button>
       </form>
 
@@ -138,5 +145,6 @@ return (
   </>
 )
 };
+
 
 export default Main;

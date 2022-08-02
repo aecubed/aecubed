@@ -15,9 +15,7 @@ server.get('/', (req, res, next) => {
   res.sendFile(path.resolve(__dirname, '../public/index.html'));
 });
 
-server.get('/assets', (req, res, next) => {
-  res.sendFile(path.resolve(__dirname, '../assets/'));
-});
+server.use('/assets', express.static(path.resolve(__dirname, '../client/assets')));
 
 // server.use('/contact', contactRouter);
 server.use('/map', mapRouter);
