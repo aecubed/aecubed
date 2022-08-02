@@ -54,12 +54,6 @@ input[type=number]::-webkit-outer-spin-button {
     margin: 0; 
 }
 
-.btn-group{
-  background-color: #29B675;
-  max-height: 50px;
-}
-
-
 
 
 //Parent container for energy orbs
@@ -92,7 +86,6 @@ input[type=number]::-webkit-outer-spin-button {
     grid-row-end: row3;
     width: 150px;
     height: 150px;
-    resize: both;
     border-radius: 50%;
     box-shadow:
     inset 0 0 30px #fff,
@@ -115,7 +108,6 @@ input[type=number]::-webkit-outer-spin-button {
     grid-row-end: row3;
     width: 150px;
     height: 150px;
-    resize: both;
     border-radius: 50%;
     box-shadow:
       inset 0 0 30px #fff,
@@ -138,7 +130,6 @@ input[type=number]::-webkit-outer-spin-button {
     grid-row-end: row3;
     width: 150px;
     height: 150px;
-    resize: both;
     border-radius: 50%;
     box-shadow:
     inset 0 0 30px #fff,
@@ -161,7 +152,6 @@ input[type=number]::-webkit-outer-spin-button {
     grid-row-end: row2;
     width: 150px;
     height: 150px;
-    resize: both;
     border-radius: 50%;
     box-shadow:
       inset 0 0 30px #fff,
@@ -183,7 +173,6 @@ input[type=number]::-webkit-outer-spin-button {
     grid-row-end: row3;
     width: 150px;
     height: 150px;
-    resize: both;
     border-radius: 50%;
     box-shadow:
       inset 0 0 30px #fff,
@@ -196,16 +185,7 @@ input[type=number]::-webkit-outer-spin-button {
       10px 0 30px #928dc9;
   }
 
-  .table-container{
-    display: grid;
-    grid-template-rows: repeat(2, 1fx);
-    justify-content: start;
-    grid-column-start: 2;
-    grid-row-start: 1;
-    align-items: center;
-    align-content: center;
-  }
-
+ 
   //ZIP CODE FORM
 .form-group{
   margin-left: 50px;
@@ -216,7 +196,17 @@ input[type=number]::-webkit-outer-spin-button {
   max-width: 500px;
 }
     
-  
+  //TABLES
+  .table-container{
+    display: grid;
+    grid-template-rows: repeat(2, 1fx);
+    justify-content: start;
+    grid-column-start: 2;
+    grid-row-start: 1;
+    align-items: center;
+    align-content: center;
+  }
+
   .table.table-light{
   margin-left: 50px;
   place-self: center;
