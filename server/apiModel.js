@@ -1,10 +1,10 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
-const { mongoUri } = require('./secrets.js')
-console.log('!!!', mongoUri);
+const { MONGO_URI } = require('./secrets.js')
+console.log('!!!', MONGO_URI);
 
 mongoose
-  .connect(mongoUri, {
+  .connect(MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
