@@ -4,6 +4,7 @@ const path = require('path');
 // const fs = require('fs');
 require('dotenv').config();
 const weatherModel = require('./apiModel');
+const { NOAA_KEY } = require('./secrets.js')
 
 const apiController = {};
 
@@ -15,7 +16,7 @@ apiController.directGeocode = (req, res, next) => {
   axios.get(`http://api.openweathermap.org/geo/1.0/zip?zip=${zipcode},${countrycode}&appid=${APIkey}`)
     .then(response => response.data)
     .then(data => {
-      res.locals.geocode = {'lat': data.lat, 'lon': data.lon};
+      res.locals.geocode = { 'lat': data.lat, 'lon': data.lon };
       res.locals.name = data.name;
       return next();
     })
@@ -63,27 +64,27 @@ apiController.queryData = async (req, res, next) => {
   const agg = [
     {
       '$group': {
-        '_id': '$month', 
+        '_id': '$month',
         'temp': {
           '$avg': '$temp.mean'
-        }, 
+        },
         'pressure': {
           '$avg': '$pressure.mean'
-        }, 
+        },
         'humidity': {
           '$avg': '$humidity.mean'
-        }, 
+        },
         'wind': {
           '$avg': '$wind.mean'
-        }, 
+        },
         'precipitation': {
           '$avg': '$precipitation.mean'
-        }, 
+        },
         'clouds': {
           '$avg': '$clouds.mean'
         }
       }
-    }, 
+    },
     {
       '$sort': {
         '_id': 1
@@ -94,7 +95,7 @@ apiController.queryData = async (req, res, next) => {
   const kelvintocelsius = (temp) => {
     return temp - 273.15;
   }
-  
+
   try {
     const weatherDocs = await weatherModel.aggregate(agg)
     weatherDocs.forEach(elem => {
@@ -120,40 +121,40 @@ apiController.comparedDetails = (req, res, next) => {
   const { month } = req.body;
   let numMonth;
   if (typeof month !== 'number') {
-    switch(month.toLowerCase()) {
+    switch (month.toLowerCase()) {
       case 'january':
         numMonth = 1;
         break;
-      case 'february' :
+      case 'february':
         numMonth = 2
         break;
-      case 'march' :
+      case 'march':
         numMonth = 3
         break;
-      case 'april' :
+      case 'april':
         numMonth = 4
         break;
-      case 'may' :
+      case 'may':
         numMonth = 5
         break;
-      case 'june' :
+      case 'june':
         numMonth = 6
         break;
-      case 'july' :
+      case 'july':
         numMonth = 7
         break;
-      case 'august' :
+      case 'august':
         numMonth = 8
         break;
-      case 'september' :
+      case 'september':
         numMonth = 9
         break;
-      case 'october' :
+      case 'october':
         numMonth = 10
-      case 'november' :
+      case 'november':
         numMonth = 11
         break;
-      case 'december' :
+      case 'december':
         numMonth = 12
         break;
       default: numMonth = 1
@@ -166,8 +167,8 @@ apiController.comparedDetails = (req, res, next) => {
   const extreme = 'rapid detoriation of equipment';
   const undetermined = 'Conclusion cannot be made at this time';
   const performance = {
-    performanceSolar : '',
-    performanceTurbine : ''
+    performanceSolar: '',
+    performanceTurbine: ''
   };
 
   res.locals.monthData = res.locals.meanData[numMonth - 1];
@@ -176,11 +177,11 @@ apiController.comparedDetails = (req, res, next) => {
   // wind turbine logic
   if (wind < 2.5) performance.performanceTurbine = poor;
   else if (wind >= 2.5 && wind < 3) performance.performanceTurbine = okay;
-  else if (wind >= 3 && wind <= 4 ) performance.performanceTurbine = optimum;
+  else if (wind >= 3 && wind <= 4) performance.performanceTurbine = optimum;
   else performance.performanceTurbine = undetermined;
 
   //solar panel logic
-  if (temp < 15 ) performance.performanceSolar = poor; 
+  if (temp < 15) performance.performanceSolar = poor;
   else if (temp > 35 && humidity > 40) performance.performanceSolar = `${poor} and ${extreme}`;
   else if (temp >= 15 && temp <= 35 && humidity < 70) performance.performanceSolar = optimum;
   else if (temp >= 15 && temp <= 35 && humidity > 70) performance.performanceSolar = extreme;
@@ -191,7 +192,7 @@ apiController.comparedDetails = (req, res, next) => {
   // calculate percipitation rate 
 
 
-  res.locals.performance = performance; 
+  res.locals.performance = performance;
   return next()
 }
 
