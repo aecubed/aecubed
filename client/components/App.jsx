@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Link} from 'react-router-dom';
-import Main from './Main.jsx';
-import About from './about_page.jsx';
+import Main from '../pages/Main.jsx';
+import About from '../pages/About.jsx';
 import '../stylesheets/style.scss';
 import * as bootstrap from 'bootstrap';
 // import Image from '..assets/AE^3_Logo'
