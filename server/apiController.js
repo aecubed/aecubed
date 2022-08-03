@@ -1,49 +1,44 @@
-const axios = require('axios');
 const path = require('path');
-const mongoose = require('mongoose')
+const fetch = require('node-fetch')
+//const mongoose = require('mongoose')
 require('dotenv').config();
 const {weatherData, Fips} = require('./apiModel');
-const { NOAA_KEY } = require('./secrets.js')
+const {NOAA_KEY} = require('./secrets.js')
 
 const apiController = {};
 
-//Token for using NOAA weather API
-const Token = 'QdwggxSzBpNxWGunLKvXgTdYaEksHuLx';
-
+//Retreiving FIPS code from MongoDB from client entry of county and state
 apiController.getFips = async(req, res, next) => {
   try{
     let {county, state} = req.params
-    // make a query to the database 
-    // fips schema: county, state, fips
     const doc = await Fips.findOne({county: county, state: state})
     res.locals.data = doc.fips;
-    console.log('im in the middle getFips!!', res.locals.data);
     return next();
   } catch (error) {
-    console.log(err.message);
     return next({
       log: 'apiController.getFips failed',
       message: 'failed to retrieve FIPS code from database'
-  })
-}
-  
+    })
+    } 
 }
 
-// GET request for weather data at a given FIPS code
-// apiController.noaaData = async (req, res, next) => {
-//   try {
-//       let {fipsCode} = req.params;
-//       const response = await axios.get(`https://www.ncei.noaa.gov/cdo-web/api/v2/data?enddate=2022-08-03&startdate=2012-08-03&locationid=FIPS:${fipsCode}&datasetid=GSOY&datatypeid=PSUN&datatypeid=TAVG&datatypeid=TMAX&datatypeid=TMIN&datatypeid=DX32&datatypeid=DX70&datatypeid=DX90&datatypeid=AWND&datatypeid=WSF2&limit=1000`)
-//       response = res.locals.weatherData;
-//       return next();
-//     } catch (error) {
-//       console.error(error.message);
-//       return next({
-//         log: 'apiController.noaaData failed',
-//         message: 'failed to retrieve NOAA weather data'
-//       })
-//     }
-//   }
+// GET request for weather data at FIPS code passed in from prev middleware
+apiController.noaaData = async (req, res, next) => { 
+  const  fipsCode = res.locals.data;
+    await fetch(`https://www.ncei.noaa.gov/cdo-web/api/v2/data?enddate=2022-08-03&startdate=2012-08-03&locationid=FIPS:${fipsCode}&datasetid=GSOY&datatypeid=PSUN&datatypeid=TAVG&datatypeid=TMAX&datatypeid=TMIN&datatypeid=DX32&datatypeid=DX70&datatypeid=DX90&datatypeid=AWND&datatypeid=WSF2&limit=1000`,{
+    headers:{
+      'Token' : NOAA_KEY
+    }})
+    .then(res => {console.log(res); return res.json(); })
+  .then(noaaData => {
+    return next();
+  })
+  .catch(err => next({
+    log: 'apiController.saveData failed',
+    message: 'failed to save weatherData to database'
+  }));
+}
+
 
 
 // apiController.saveData = async (req, res, next) => {
