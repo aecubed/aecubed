@@ -13,7 +13,7 @@ const countrycode = 'US'; // refers to ISO codes
 
 apiController.directGeocode = (req, res, next) => {
   const { zipcode } = req.body;
-  axios.get(`http://api.openweathermap.org/geo/1.0/zip?zip=${zipcode},${countrycode}&appid=${APIkey}`)
+  axios.get(`http://api.openweathermap.org/geo/1.0/zip?zip=${zipcode},${countrycode}&appid=${NOAA_KEY}`)
     .then(response => response.data)
     .then(data => {
       res.locals.geocode = { 'lat': data.lat, 'lon': data.lon };
@@ -31,7 +31,7 @@ apiController.getWeatherData = (req, res, next) => {
   const { lat, lon } = res.locals.geocode;
   // temp, pressure, humidity, wind, precipitation, clouds, sunshine_hours
 
-  axios.get(`https://history.openweathermap.org/data/2.5/aggregated/year?lat=${lat}&lon=${lon}&appid=${APIkey}`)
+  axios.get(`https://history.openweathermap.org/data/2.5/aggregated/year?lat=${lat}&lon=${lon}&appid=${NOAA_KEY}`)
     .then(response => response.data.result)
     .then(data => {
       res.locals.weatherData = data;
@@ -86,6 +86,7 @@ apiController.queryData = async (req, res, next) => {
       }
     },
     {
+      /* Sorting the data by the id. */
       '$sort': {
         '_id': 1
       }
@@ -161,11 +162,16 @@ apiController.comparedDetails = (req, res, next) => {
     }
   }
 
+
+  /* This is creating a constant variable and assigning it the value. */
   const poor = 'Poor Performance';
   const okay = 'Okay Performance'
   const optimum = 'Optimum Performance';
   const extreme = 'rapid detoriation of equipment';
   const undetermined = 'Conclusion cannot be made at this time';
+
+  /* This is creating an object called performance and assigning it two properties, performanceSolar and
+  performanceTurbine. */
   const performance = {
     performanceSolar: '',
     performanceTurbine: ''
@@ -175,12 +181,16 @@ apiController.comparedDetails = (req, res, next) => {
   const { temp, humidity, wind } = res.locals.monthData;
 
   // wind turbine logic
+  /* This is a conditional statement that is checking the wind speed of the weather data and assigning a
+  performance value to the wind turbine. */
   if (wind < 2.5) performance.performanceTurbine = poor;
   else if (wind >= 2.5 && wind < 3) performance.performanceTurbine = okay;
   else if (wind >= 3 && wind <= 4) performance.performanceTurbine = optimum;
   else performance.performanceTurbine = undetermined;
 
   //solar panel logic
+  /* This is a conditional statement that is checking the temperature and humidity of the weather data
+  and assigning a performance value to the solar panel. */
   if (temp < 15) performance.performanceSolar = poor;
   else if (temp > 35 && humidity > 40) performance.performanceSolar = `${poor} and ${extreme}`;
   else if (temp >= 15 && temp <= 35 && humidity < 70) performance.performanceSolar = optimum;
