@@ -4,12 +4,8 @@ import reactDom from 'react-dom';
 //import bootstrap's CSS and JS file
 // import "bootstrap/dist/css/bootstrap.min.css";
 // import "bootstrap/dist/js/bootstrap.bundle.min";
-
-import "./stylesheets/style.scss"
-import * as bootstrap from 'bootstrap';
-
-import App from './components/App.jsx'
+import App from './components/App.jsx';
 
 
 //mount our React app to the index.html at root element
-reactDom.render(< App/>, document.querySelector("#root"));
+reactDom.render(<App/>, document.querySelector('#root') || document.createElement('div'));
