@@ -2,6 +2,7 @@ const axios = require('axios');
 const path = require('path');
 require('dotenv').config();
 const weatherModel = require('./apiModel');
+const { NOAA_KEY } = require('./secrets.js')
 
 const apiController = {};
 
