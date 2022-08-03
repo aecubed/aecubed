@@ -35,9 +35,6 @@ apiController.getWeatherData = (req, res, next) => {
     .then(response => response.data.result)
     .then(data => {
       res.locals.weatherData = data;
-      // console.log(res.locals.weatherData);
-      // const filepath = path.join(__dirname, '/dump/weatherData.json')
-      // fs.writeFileSync(filepath, res.locals.weatherData);
       return next();
     })
     .catch(err => next({
