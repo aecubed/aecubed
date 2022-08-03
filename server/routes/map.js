@@ -31,11 +31,11 @@ mapRouter.get('/states/:state', dbController.getCounties, (req, res) => { // to 
 // fire after clicking the submit button
 
 //
-mapRouter.get('/states/:state/:county', weather.getFips,  (req, res)=> { // to get weather // test later  
+mapRouter.get('/states/:state/:county', weather.getFips, weather.noaaData, (req, res)=> { // to get weather // test later  weather.noaaData,
   //recieve user input county in req.params.county
   //req.params.state ->new york 
   //const {state, county} = req.params; > fetch data API with state + county > > 
-  return res.status(200).json(res.locals.data);
+  return res.status(200).json('i am okayyyyyyy'); // res.locals.data
   // query api by using fips as params here
   // handle data 
 });
