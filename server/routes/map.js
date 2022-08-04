@@ -3,12 +3,7 @@ const express = require('express');
 const apiController = require('../controllers/apiController');
 const dbController = require('../controllers/dbController');
 const mapRouter = express.Router();
-<<<<<<< HEAD
-
-const weather = require('../apiController.js')
-=======
 const weather = require('../controllers/apiController.js');
->>>>>>> dev
 
 // mapRouter.post('/', 
 //   apiController.directGeocode, apiController.getWeatherData, 
