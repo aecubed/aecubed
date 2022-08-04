@@ -120,26 +120,27 @@ const Main = () => {
 
   return (
     <>
-    {/* <div className='main'> */}
         <div className='body'>
         
           {/* Location Table */}
-          <div className='table-container'>
-            <div className = 'testTable'>
-              <div id ="dropDown">
-                
+          <div className='dropdown-body'>
+
+            <div className='stateDrop'>
                 <h3>States</h3>
                 <select id= "selectState" onChange = {(e) => {setSelectedState(e.target.value);}}>
                   {statesDropdown}
                 </select>
+                </div>
 
+            <div className='countyDrop'>
                 <h3>Counties</h3>
                 <select id= "selectCounty" onChange = {(e) => {setSelectedCounty(e.target.value);}}>
                   {countiesDropdown}
                 </select>
-              </div>
-              <button id = 'submitStateCounty' type ='submit' onClick = {handleEvent}>Get Data</button>
             </div>
+
+              <button id = 'submitStateCounty' type ='submit' onClick = {handleEvent}>Get Data</button>
+
           </div>
 
           {/* Energy Orbs */}
@@ -151,7 +152,6 @@ const Main = () => {
           />
 
       </div>
-      {/* </div> */}
     </>
   );
 };
