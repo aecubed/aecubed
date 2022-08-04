@@ -9,12 +9,23 @@ const COUNTRY_CODE = 'US';
 const apiController = {};
 
 // GET request for weather data at FIPS code passed in from prev middleware
+<<<<<<< HEAD
 apiController.noaaData = async (req, res, next) => { 
   await fetch(`https://www.ncei.noaa.gov/cdo-web/api/v2/data?enddate=2021-12-31&startdate=2012-01-01&locationid=FIPS:${res.locals.fips}&datasetid=GSOY&datatypeid=PSUN&datatypeid=TAVG&datatypeid=TMAX&datatypeid=TMIN&datatypeid=DX32&datatypeid=DX70&datatypeid=DX90&datatypeid=AWND&datatypeid=WSF2&limit=1000`,{
     headers:{
       'token' : NOAA_KEY
     }})
     .then(res => res.json())
+=======
+apiController.noaaData = async (req, res, next) => {
+  const fipsCode = res.locals.data;
+  await fetch(`https://www.ncei.noaa.gov/cdo-web/api/v2/data?enddate=2022-08-03&startdate=2012-08-03&locationid=FIPS:${fipsCode}&datasetid=GSOY&datatypeid=PSUN&datatypeid=TAVG&datatypeid=TMAX&datatypeid=TMIN&datatypeid=DX32&datatypeid=DX70&datatypeid=DX90&datatypeid=AWND&datatypeid=WSF2&limit=1000`, {
+    headers: {
+      'token': NOAA_KEY
+    }
+  })
+    .then(res => { console.log(res); return res.json(); })
+>>>>>>> dev
     .then(noaaData => {
       console.table(noaaData.results);
       res.locals.weatherData = noaaData.results;
@@ -195,7 +206,7 @@ apiController.getWeatherData = (req, res, next) => {
 //   const kelvintocelsius = (temp) => {
 //     return temp - 273.15;
 //   }
-  
+
 //   try {
 //     const weatherDocs = await weatherModel.aggregate(agg)
 //     weatherDocs.forEach(elem => {

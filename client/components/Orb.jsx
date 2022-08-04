@@ -1,13 +1,12 @@
 
 import React from 'react';
 
-const Orb = (props) => {
+export default function Orb(props) {
   return (
-    <div className = {props.className}>
+    <div className={props.className}>
       <div>{props.headerText}</div>
       <div>{props.value}</div>
     </div>
   );
 };
 
-export default Orb;
