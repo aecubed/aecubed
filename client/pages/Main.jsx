@@ -21,17 +21,8 @@ const Main = () => {
   //State for API results
   const [performanceSolar, setPerformanceSolar] = useState()
   const [performanceTurbine, setPerfomanceTurbine] = useState()
-  //State for the zip code input and Location of zip and month
-  // const[month, setMonth] = useState("");
-
   const [zipCode, setZipCode] = useState('');
   const [location, setLocation] = useState('');
-  //State for the 5 data points for each location
-  // const [yearArray, setYearArray] = useState([]);
-  // const [sunArray, setSunArray] = useState([]);
-  // const [temperatureArray, setTemperatureArray] = useState([]);
-  // const [wind1Array, setWind1Array] = useState([]);
-  // const [wind2Array, setWind2Array] = useState([]);
 
   const [data, setData] = useState([]);
 
@@ -39,41 +30,67 @@ const Main = () => {
   const [counties, setCounties] = useState(['-- Select a County --']);
 
   const [selectedState, setSelectedState] = useState('-- Select a State --');
-  const [selectedCounty, setSelectedCounty] = useState('-- Select a Country --');
+  const [selectedCounty, setSelectedCounty] = useState('-- Select a County --');
 
-  // On component mount
-  // get the list of states 
-  // pass the states list down to a states dropdown component
+  const [weatherData, setWeatherData] = useState([]);
 
+  //intial fetch request to populate states dropdown
   useEffect(() => {
     console.log('page has loaded, fetching states');
     fetch('http://localhost:8080/map/states')
       .then(res => res.json())
       .then(res => {
         console.log('result of hitting states endpoint:');
-        console.log(res);
+        // console.log(res);
         setStates(['-- Select a State --'].concat(res));
       })
       .catch(err => {
         console.log('error in fetching states');
         console.log(err);
-      })
+      });
   }, []);
 
+  //fetch request that is triggered when state is selected
   useEffect(() => {
     console.log('selected state has changed, updating counties');
     fetch(`http://localhost:8080/map/states/${selectedState}`)
       .then(res => res.json())
       .then(res => {
         console.log('result of hitting counties endpoint:');
-        console.log(res);
+        // console.log(res);
         setCounties(['-- Select a County --'].concat(res));
       })
       .catch(err => {
         console.log('error in fetching counties');
         console.log(err);
-      })
+      });
   }, [selectedState]);
+
+  //viewable in client console to see if information is being set correctly - happens on load
+  useEffect(() => {
+    console.log('county has been selected, waiting for submit button');
+    console.log(`current selection : ${selectedState}, ${selectedCounty}`);
+  });
+
+  //methods to handle events
+
+  //THIS SHOULD BE SET TO FIRE ON THE STATE DROPDOWN
+  //   const selectCounty = async () => { 
+
+  //   try {
+  //     console.log(before county fetch request);
+  //     const reponse = await fetch('http://localhost:8080/map/state/${selectedStatevalue}')
+  //     const countiesList = await response.json();
+  //     console.log(countiesList);
+  //     console.log(counties);
+  //     setCounties(counties.concat(countiesList));
+  //   }
+  //     catch(err){
+  //       console.log(`Something went wrong when trying to load counties ${err}`)
+  //     }
+
+  //   } 
+  // }
 
   //populates state dropdown
   const statesDropdown = [];
@@ -103,12 +120,6 @@ const Main = () => {
       .then(response => response.data)
       .then(data => {
         console.log('-- year data from api --', data);
-        // const { year, sun, temp, wind1, wind2 } = data;
-        // setYearArray(year);
-        // setSunArray(sun);
-        // setTemperatureArray(temp);
-        // setWind1Array(wind1);
-        // setWind2Array(wind2);
         setData(data);
       })
       .catch((err) => {
@@ -117,91 +128,78 @@ const Main = () => {
           message: 'failed recieve weather data'
         };
       });
+    for (let i = 0; i < counties.length; i++) {
+      countiesDropdown.push(<option value={counties[i]} key={counties[i]}> {counties[i]} </option>);
+    }
+
+
+    // const updateState = (e) => {
+    //   setSelectedState(e.target.value);
+    //   console.log(selectedState);
+    // };
+
+
+    // const handleEvent = async() => {
+    //   try{
+    //     console.log('Get data firing')
+    //     const response = await fetch(`http://localhost:8080/map/states/${selectedState}/${selectedCounty}`);
+    //     const data = response.json();
+    //     //console.log(Data); 
+    //     setWeatherData(data);
+    //     //console.log(data);
+    //   }
+    //   catch (err){
+    //     console.log(`Error has occurred on getting weather data. Error: ${err}`);
+    //   }
+
+    // };
+
+    return (
+      <>
+        <div className='main'>
+          <div className='body'>
+
+            {/* Location Table */}
+            <div className='table-container'>
+              <div className='testTable'>
+                <div id="dropDown">
+
+                  <h3>States</h3>
+                  <select id="selectState" onChange={(e) => { setSelectedState(e.target.value); }}>
+                    {statesDropdown}
+                  </select>
+
+                  <h3>Counties</h3>
+                  <select id="selectCounty" onChange={(e) => { setSelectedCounty(e.target.value); }}>
+                    {countiesDropdown}
+                  </select>
+                </div>
+                <button id='submitStateCounty' type='submit' onClick={handleEvent}>Get Data</button>
+              </div>
+            </div >
+
+            {/* Energy Orbs */}
+            < OrbContainer
+              temperature='temperatureOrb'
+              humidity='humidityOrb'
+              wind='windOrb'
+              precipitation='precipitationOrb'
+              cloudCover='cloudOrb'
+            />
+
+            {/* data table */}
+            < Table
+              // yearArray={yearArray}
+              // sunArray={sunArray}
+              // temperatureArray={temperatureArray}
+              // wind1Array={wind1Array}
+              // wind2Array={wind2Array} 
+              data={data} />
+          </div >
+        </div >
+      </>
+    );
   };
 
-  return (
-    <>
-      <div className='main'>
-        <div className='body'>
 
-
-
-          {/* Location Table */}
-          <div className='table-container'>
-            <div className='testTable'>
-              <div id="dropDown">
-
-                <h2>States</h2>
-                <select >
-                  {statesDropdown}
-                </select>
-
-                <h2>Counties</h2>
-                <select >
-                  {countiesDropdown}
-                </select>
-
-              </div>
-            </div>
-
-            <div className="form-group">
-              <form onSubmit={handleSubmit}>
-                <label htmlFor="zipcodeInput">ZIP Code</label>
-                <input type="number" className="form-control" id="inputZIP" placeholder="Enter ZIP" value={zipCode} onChange={e => { setZipCode(e.target.value) }}></input>
-                <button id="submitZIP" type="submit">Enter</button>
-              </form>
-            </div>
-            <table className="table table-dark">
-              <thead className='table1'>
-                <tr>
-                  <th scope="col">Location</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td scope="row">{location}</td>
-                </tr>
-              </tbody>
-            </table>
-
-            <table className="table table-light">
-              <thead>
-                <tr>
-                  <th>Solar Performance</th>
-                  <th>Wind Performance</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td scope="row">{performanceSolar}</td>
-                  <td scope="row">{performanceTurbine}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          {/* Energy Orbs */}
-          <OrbContainer
-            temperature='temperatureOrb'
-            humidity='humidityOrb'
-            wind='windOrb'
-            precipitation='precipitationOrb'
-            cloudCover='cloudOrb'
-          />
-
-          {/* data table */}
-          <Table
-            // yearArray={yearArray}
-            // sunArray={sunArray}
-            // temperatureArray={temperatureArray}
-            // wind1Array={wind1Array}
-            // wind2Array={wind2Array} 
-            data={data} />
-        </div>
-      </div>
-    </>
-  );
-}
-
-
-export default Main;
+  export default Main;
