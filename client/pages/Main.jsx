@@ -10,7 +10,7 @@ const Main = () => {
   const [counties, setCounties] = useState(['-- Select a County --']);
 
   const [selectedState, setSelectedState] = useState('-- Select a State --');
-  const [selectedCounty, setSelectedCounty] = useState('-- Select a Counties --');
+  const [selectedCounty, setSelectedCounty] = useState('-- Select a County --');
 
   const [weatherData, setWeatherData] = useState([]);
   // On component mount
