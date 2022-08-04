@@ -9,11 +9,11 @@ const OrbContainer = (props) => {
   const value = [props.temperatureOrb, props.humidityOrb, props.windOrb, props.precipitationOrb, props.cloudOrb];
   for (let i = 0; i < texts.length; i++) {
     orbs.push(
-      <Orb 
-        headerText = {texts[i]}
-        className = {classNames[i]}
-        prop = {props[i]}
-        key = {'orb' + i}
+      <Orb
+        headerText={texts[i]}
+        className={classNames[i]}
+        prop={props[i]}
+        key={'orb' + i}
       />
     )
   }
