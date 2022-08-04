@@ -24,14 +24,14 @@ apiController.getFips = async(req, res, next) => {
 
 // GET request for weather data at FIPS code passed in from prev middleware
 apiController.noaaData = async (req, res, next) => { 
-  const  fipsCode = res.locals.data;
+  const fipsCode = res.locals.data;
     await fetch(`https://www.ncei.noaa.gov/cdo-web/api/v2/data?enddate=2022-08-03&startdate=2012-08-03&locationid=FIPS:${fipsCode}&datasetid=GSOY&datatypeid=PSUN&datatypeid=TAVG&datatypeid=TMAX&datatypeid=TMIN&datatypeid=DX32&datatypeid=DX70&datatypeid=DX90&datatypeid=AWND&datatypeid=WSF2&limit=1000`,{
     headers:{
       'Token' : NOAA_KEY
     }})
     .then(res => {console.log(res); return res.json(); })
   .then(noaaData => {
-    return next();
+    res.locals.weather = noaaData;
   })
   .catch(err => next({
     log: 'apiController.saveData failed',
