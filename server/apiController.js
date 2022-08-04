@@ -2,7 +2,7 @@ const axios = require('axios');
 const path = require('path');
 const mongoose = require('mongoose')
 require('dotenv').config();
-const {weatherData, Fips} = require('./apiModel');
+const { weatherData, Fips } = require('./apiModel');
 const { NOAA_KEY } = require('./secrets.js')
 
 const apiController = {};
@@ -10,12 +10,12 @@ const apiController = {};
 //Token for using NOAA weather API
 const Token = 'QdwggxSzBpNxWGunLKvXgTdYaEksHuLx';
 
-apiController.getFips = async(req, res, next) => {
-  try{
-    let {county, state} = req.params
+apiController.getFips = async (req, res, next) => {
+  try {
+    const { county, state } = req.params;
     // make a query to the database 
     // fips schema: county, state, fips
-    const doc = await Fips.findOne({county: county, state: state})
+    const doc = await Fips.findOne({ county: county, state: state })
     res.locals.data = doc.fips;
     console.log('im in the middle getFips!!', res.locals.data);
     return next();
@@ -24,9 +24,9 @@ apiController.getFips = async(req, res, next) => {
     return next({
       log: 'apiController.getFips failed',
       message: 'failed to retrieve FIPS code from database'
-  })
-}
-  
+    })
+  }
+
 }
 
 // GET request for weather data at a given FIPS code
@@ -95,7 +95,7 @@ apiController.getFips = async(req, res, next) => {
 //   const kelvintocelsius = (temp) => {
 //     return temp - 273.15;
 //   }
-  
+
 //   try {
 //     const weatherDocs = await weatherModel.aggregate(agg)
 //     weatherDocs.forEach(elem => {
