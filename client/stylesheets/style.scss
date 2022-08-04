@@ -3,87 +3,65 @@
 $nav-theme-color: rgb(0, 0, 130);
 
 
-.main{
-  // display: grid;
-  grid-template-columns: 1fr 2fr;
-  grid-template-rows: 1fr 1fr;
-  background-color: rgb(48, 14, 81);
-  // background-image: url('https://media4.giphy.com/media/3og0IV7MOCfnm85iRa/giphy.gif?cid=790b761115367520aa6ca01b6a0e35f316f672cf0d8298c0&rid=giphy.gif&ct=g');
-  height: 100vh;
-  width: 100vw;
-  // background-repeat:no-repeat;
-  
-}
-
 .body{
   font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', Verdana, sans-serif;
-  color: white;
   display: grid;
-  margin-left: 30px;
-  width: 100vw;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 1fr 1fr;
   height: 100vh;
+  width: 100vw;
+  background-color: #31AA50;
+  color: white;
 }
 
 
 .navbar{
-  display: flex;
-  justify-content: flex-start;
-  height: auto;
-  gap: 20px;
-  padding: 1px;
-  text-decoration: none;
-  margin: auto;
   font-family: 'Ibarra Real Nova', serif;
   font-family: 'Lato', sans-serif;
+  display: flex;
+  justify-content: flex-start;
+  padding: 1px;
+  margin: auto;
+  height: auto;
+  gap: 20px;
 };
-
-#about-logo{
-  width: 130px;
-  height: 100px;
-}
 
 .navbar-about, .navbar-main{
   text-decoration: none;
   color: black;
 }
 
-//Removes spinner control (arrows) from zip code input
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-    -webkit-appearance: none; 
-    margin: 0; 
+#about-logo{
+  width: 130px;
+  height: 100px;
 }
 
 
 
-//Parent container for energy orbs
+//Parent container for weather orbs
 .orbs-parent{
-  background-image: url('https://media4.giphy.com/media/3og0IV7MOCfnm85iRa/giphy.gif?cid=790b761115367520aa6ca01b6a0e35f316f672cf0d8298c0&rid=giphy.gif&ct=g');
-  font-family: 'Ibarra Real Nova', serif;
-  font-family: 'Lato', sans-serif;
   font-size:medium;
-  align-self: center;
-  display: grid;
-  grid-column-start: 1;
-  padding-top: 20px;
-  grid-template-columns: [first] 200px [line2] 200px [line3] 200px;
-  grid-template-rows: [row1] 200px [row2] 200px [row3] 200px;
   text-align: center;
+  display: grid;
+  grid-template-columns: 200px 200px 200px 200px;
+  grid-template-areas: 'orb1 orb2 orb3 orb4';
+  grid-column-start: 1;
+  grid-row-start: 1;
+  place-items: center;
+  margin-left: 80px;
+  margin-top: 60px;
   vertical-align: middle;
-  height: 600px;
-  width: 600px;
-  border-radius: 20%;
-  border:2px solid black;
+  height: 200px;
+  width: 800px;
+  border:2px solid 	#213C5E;
   }
   
-  //style for solar orb resize
+  //style for temperature orb 
   .temp-orb{
-    justify-self: center;
+    grid-area: orb1;
+    grid-column-start: orb1;
+    place-self: center;
     padding-top: 25px;
-    grid-column-start: 2;
-    grid-column-end: 3;
-    grid-row-start: row2;
-    grid-row-end: row3;
     width: 150px;
     height: 150px;
     border-radius: 50%;
@@ -98,14 +76,12 @@ input[type=number]::-webkit-outer-spin-button {
       10px 0 30px #FFCF63;
   }
   
-  //style for wind orb resize
-  .humidity-orb{
-    justify-self: center;
+  //style for sun orb 
+  .sunshine-orb{
+    grid-area: orb2;
+    grid-column-start: orb2;
+    place-self: center;
     padding-top: 25px;
-    grid-column-start: 2;
-    grid-column-end: 3;
-    grid-row-start: row3;
-    grid-row-end: row3;
     width: 150px;
     height: 150px;
     border-radius: 50%;
@@ -120,14 +96,11 @@ input[type=number]::-webkit-outer-spin-button {
       10px 0 30px rgb(119, 129, 146);
   }
   
-  //style for rain orb
-  .wind-orb{
-    justify-self: center;
+  //style for peak 2min wind orb
+  .peakwind-orb{
+    grid-area: orb3;
+    place-self: center;
     padding-top: 25px;
-    grid-column-start: 1;
-    grid-column-end: 2;
-    grid-row-start: row2;
-    grid-row-end: row3;
     width: 150px;
     height: 150px;
     border-radius: 50%;
@@ -142,14 +115,11 @@ input[type=number]::-webkit-outer-spin-button {
       10px 0 30px rgb(97, 107, 125);
   }
 
-   //style for precip orb
-   .precip-orb{
-    justify-self: center;
+   //style for avg wind orb
+   .avgwind-orb{
+    grid-area: orb4;
+    place-self: center;
     padding-top: 25px;
-    grid-column-start: 2;
-    grid-column-end: 3;
-    grid-row-start: row1;
-    grid-row-end: row2;
     width: 150px;
     height: 150px;
     border-radius: 50%;
@@ -164,40 +134,8 @@ input[type=number]::-webkit-outer-spin-button {
       10px 0 30px #a0b6c4;
   }
 
-  .cloud-orb{
-    justify-self: center;
-    padding-top: 25px;
-    grid-column-start: 3;
-    grid-column-end: 3;
-    grid-row-start: row2;
-    grid-row-end: row3;
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    box-shadow:
-      inset 0 0 30px #fff,
-      inset 20px 0 80px #6d6d6d,
-      inset -20px 0 80px #928dc9,
-      inset 20px 0 300px #6d6d6d,
-      inset -20px 0 300px #928dc9,
-      0 0 10px #fff,
-      -10px 0 30px #6d6d6d,
-      10px 0 30px #928dc9;
-  }
-
- 
-  //ZIP CODE FORM
-.form-group{
-  margin-left: 50px;
-  margin-top: 80px;
-  align-self: start;
-  justify-self: center;
-  text-align: center;
-  max-width: 500px;
-}
-    
-  //TABLES
-  .table-container{
+  //Sate and County Dropdowns
+  .dropdown-container{
     display: grid;
     grid-template-rows: repeat(2, 1fx);
     justify-content: start;
@@ -207,34 +145,6 @@ input[type=number]::-webkit-outer-spin-button {
     align-content: center;
   }
 
-  .table.table-light{
-  margin-left: 50px;
-  place-self: center;
-  }
-
-  .table.table-dark{
-    margin-left: 50px;
-    margin-top: 20px;
-    grid-column-start: 1;
-    grid-row-start: 2;
-    place-self: center;
-    max-width: 800px;
-    text-align: center;
-  }
-  .thead {
-    font-weight: 400;
-    background: #29B675;
-  }
-  
-
-  // #about-container{
-  //   display: grid;
-  //   grid-template-rows: repeat(4, 500px);
-  //   grid-template-columns: repeat(3, 1fr);
-  //   // background-image: url(../assets/Wind-farm-turbines-WV.jpeg);
-  //   height: 100%;
-  //   overflow-x: hidden;
-  // }
 
 .about-page{
   font-family: 'Ibarra Real Nova', serif;
@@ -250,16 +160,8 @@ input[type=number]::-webkit-outer-spin-button {
   align-items: center;
   align-content: center;
   padding: 30px;
-  // background-image: url(../assets/about-banner.png);
 }
 
-// .goal-container{
-//   grid-area: 1 / 1 / 1 / 1;
-// }
-
-// .paragraph1{
-//   grid-area: 2 / 1 / 2 / 1;
-// }
 .how-flex{
   display: flex;
   align-items: center;
