@@ -26,21 +26,23 @@ export default function DataTable(props) {
 
   return (
     <>
-      <table className="table table-bordered border-primary">
-        <tr align-middle text-align='center' className='table-light'>
-          <th>year</th>
-          <th>% of Sunshine</th>
-          <th>Average Temperature</th>
-          <th>Max Temperature</th>
-          <th>Min Temperature</th>
-          <th># of days with Temperature &lt; 32F</th>
-          <th># of days with Temperature &gt; 70F</th>
-          <th># of days with Temperature &gt; 90F</th>
-          <th>Average Wind Speed</th>
-          <th>Fastest Wind Speed</th>
-        </tr>
-        {rows}
-      </table>
+      <div className='table-body'>
+        <table className="table table-bordered table-dark">
+          <tr align-middle >
+            <th>Year</th>
+            <th>Sunshine %</th>
+            <th>Average Temperature</th>
+            <th>Max Temperature</th>
+            <th>Min Temperature</th>
+            <th>Days with Temperature  &lt; 32F</th>
+            <th>Days with Temperature  &gt; 70F</th>
+            <th>Days with Temperature &gt; 90F</th>
+            <th>Average Wind Speed</th>
+            <th>Fastest Wind Speed</th>
+          </tr>
+          {rows}
+        </table>
+      </div>
     </>
   );
 }
