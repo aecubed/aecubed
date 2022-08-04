@@ -207,9 +207,22 @@ $nav-theme-color: rgb(0, 0, 130);
   grid-area: 1 / 1 / 1 / 1;
 }
 
-// table,
-// th,
-// tr {
+// table {
 //   border: 1px solid white;
+//   color: white;
+// }
+
+th {
+  font-size: small;
+  text-align: center;
+  height: 80px;
+}
+
+tr {
+  text-align: center;
+  height: 50px;
+}
+
+// .table-body {
 //   color: white;
 // }
