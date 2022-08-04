@@ -61,6 +61,7 @@ const Main = () => {
 
   //methods to handle events
 
+
   //THIS SHOULD BE SET TO FIRE ON THE STATE DROPDOWN
   //   const selectCounty = async () => { 
 
@@ -120,44 +121,43 @@ const Main = () => {
 
   return (
     <>
-      <div className='main'>
-        <div className='body'>
+      {/* <div className='main'> */}
+      <div className='body'>
 
+        {/* Location Table */}
+        <div className='table-container'>
+          <div className='testTable'>
+            <div id="dropDown">
 
+              <h3>States</h3>
+              <select id="selectState" onChange={(e) => { setSelectedState(e.target.value); }}>
+                {statesDropdown}
+              </select>
 
-          {/* Location Table */}
-          <div className='table-container'>
-            <div className='testTable'>
-              <div id="dropDown">
-
-                <h3>States</h3>
-                <select id="selectState" onChange={(e) => { setSelectedState(e.target.value); }}>
-                  {statesDropdown}
-                </select>
-
-                <h3>Counties</h3>
-                <select id="selectCounty" onChange={(e) => { setSelectedCounty(e.target.value); }}>
-                  {countiesDropdown}
-                </select>
-              </div>
-              <button id='submitStateCounty' type='submit' onClick={handleEvent}>Get Data</button>
+              <h3>Counties</h3>
+              <select id="selectCounty" onChange={(e) => { setSelectedCounty(e.target.value); }}>
+                {countiesDropdown}
+              </select>
             </div>
+            <button id='submitStateCounty' type='submit' onClick={handleEvent}>Get Data</button>
           </div>
-
-          {/* Energy Orbs */}
-          <OrbContainer
-            temperature='temperatureOrb'
-            humidity='humidityOrb'
-            wind='windOrb'
-            precipitation='precipitationOrb'
-            cloudCover='cloudOrb'
-          />
-
-          {/* data table */}
-          < DataTable data={weatherData} />
-
         </div>
+
+        {/* Energy Orbs */}
+        <OrbContainer
+          temperature='temperatureOrb'
+          humidity='humidityOrb'
+          wind='windOrb'
+          precipitation='precipitationOrb'
+          cloudCover='cloudOrb'
+        />
+
+        {/* data table */}
+        < DataTable data={weatherData} />
+
       </div>
+      {/* </div> */}
+      {/* </div> */}
     </>
   );
 };
