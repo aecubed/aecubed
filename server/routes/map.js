@@ -1,6 +1,7 @@
 "use strict"
 const express = require('express');
 const apiController = require('../apiController');
+const dbController = require('../controllers/dbController');
 const mapRouter = express.Router();
 
 const weather = require('../apiController.js')
@@ -18,16 +19,13 @@ console.log(weather)
 // )
 
 // fire after loading page
-mapRouter.get('/states', (req, res)=> {
-  //returns it .json( _states_ );
-  return res.status(200).json();
+mapRouter.get('/states', dbController.getStates, (req, res) => {
+  return res.status(200).json(res.locals.states);
 })
 
 // fire after selecting state
-mapRouter.get('/states/:state',  (req, res)=> { // to get counties - look into how to make router end point url more intuitive
-  //recieves user input state in req.params.state 
-  //returns the counties 
-  return res.status(200).json();
+mapRouter.get('/states/:state', dbController.getCounties, (req, res) => { // to get counties - look into how to make router end point url more intuitive
+  return res.status(200).json(res.locals.counties);
 })
 
 // fire after clicking the submit button

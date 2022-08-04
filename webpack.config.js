@@ -89,7 +89,16 @@ module.exports = {
       '/**': {
         target: 'http://localhost:3000',
         secure: false
+      },
+      '/map/state': {
+        target: 'http://localhost:3000',
+        secure: false
+      },
+      '/states/**': {
+        target: 'http://localhost:3000',
+        secure: false
       }
+
     }
   },
 }
