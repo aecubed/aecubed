@@ -59,6 +59,7 @@ const Main = () => {
 
 //methods to handle events
 
+
   //THIS SHOULD BE SET TO FIRE ON THE STATE DROPDOWN
   //   const selectCounty = async () => { 
 
@@ -119,11 +120,9 @@ const Main = () => {
 
   return (
     <>
-      <div className='main'>
+    {/* <div className='main'> */}
         <div className='body'>
         
-            
-          
           {/* Location Table */}
           <div className='table-container'>
             <div className = 'testTable'>
@@ -146,13 +145,13 @@ const Main = () => {
           {/* Energy Orbs */}
           <OrbContainer 
             temperature='temperatureOrb' 
-            humidity='humidityOrb' 
-            wind='windOrb'
-            precipitation='precipitationOrb'
-            cloudCover='cloudOrb'
+            sunshine='sunshineOrb'
+            peakWind='peakWindOrb'
+            avgWind='avgWingOrb'
           />
-        </div>
+
       </div>
+      {/* </div> */}
     </>
   );
 };
