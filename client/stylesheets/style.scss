@@ -3,8 +3,8 @@
 $nav-theme-color: rgb(0, 0, 130);
 
 
-.body{
-  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', Verdana, sans-serif;
+.body {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', Verdana, sans-serif;
   display: grid;
   grid: 1fr 1fr / 1fr 0.75fr;
   height: 100vh;
@@ -14,7 +14,7 @@ $nav-theme-color: rgb(0, 0, 130);
 }
 
 
-.navbar{
+.navbar {
   font-family: 'Ibarra Real Nova', serif;
   font-family: 'Lato', sans-serif;
   display: flex;
@@ -23,14 +23,17 @@ $nav-theme-color: rgb(0, 0, 130);
   margin: auto;
   height: auto;
   gap: 20px;
-};
+}
 
-.navbar-about, .navbar-main{
+;
+
+.navbar-about,
+.navbar-main {
   text-decoration: none;
   color: black;
 }
 
-#about-logo{
+#about-logo {
   width: 130px;
   height: 100px;
 }
@@ -38,8 +41,8 @@ $nav-theme-color: rgb(0, 0, 130);
 
 
 //Parent container for weather orbs
-.orbs-parent{
-  font-size:medium;
+.orbs-parent {
+  font-size: medium;
   text-align: center;
   display: grid;
   grid-template-columns: 200px 200px 200px 200px;
@@ -68,74 +71,54 @@ $nav-theme-color: rgb(0, 0, 130);
     border-radius: 50%;
     box-shadow:
     inset 0 0 30px #fff,
-      inset 20px 0 80px #FF4100,
-      inset -20px 0 80px #FFCF63,
-      inset 20px 0 300px #FF4100,
-      inset -20px 0 300px #FFCF63,
-      0 0 10px #fff,
-      -10px 0 30px #FF4100,
-      10px 0 30px #FFCF63;
-  }
-  
-  //style for sun orb 
-  .sunshine-orb{
-    grid-area: orb2;
-    grid-column-start: orb2;
-    place-self: center;
-    padding-top: 25px;
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    box-shadow:
-      inset 0 0 30px #fff,
-      inset 20px 0 80px rgb(106, 137, 193),
-      inset -20px 0 80px rgb(119, 129, 146),
-      inset 20px 0 300px rgb(106, 137, 193),
-      inset -20px 0 300px rgb(119, 129, 146),
-      0 0 10px #fff,
-      -10px 0 30px rgb(106, 137, 193),
-      10px 0 30px rgb(119, 129, 146);
-  }
-  
-  //style for peak 2min wind orb
-  .peakwind-orb{
-    grid-area: orb3;
-    place-self: center;
-    padding-top: 25px;
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    box-shadow:
+    inset 20px 0 80px #FF4100,
+    inset -20px 0 80px #FFCF63,
+    inset 20px 0 300px #FF4100,
+    inset -20px 0 300px #FFCF63,
+    0 0 10px #fff,
+    -10px 0 30px #FF4100,
+    10px 0 30px #FFCF63;
+}
+
+//style for sun orb 
+.sunshine-orb {
+  grid-area: orb2;
+  grid-column-start: orb2;
+  place-self: center;
+  padding-top: 25px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  box-shadow:
     inset 0 0 30px #fff,
-      inset 20px 0 80px #e5e5e5,
-      inset -20px 0 80px rgb(97, 107, 125),
-      inset 20px 0 300px #e5e5e5,
-      inset -20px 0 300px rgb(97, 107, 125),
-      0 0 10px #fff,
-      -10px 0 30px #e5e5e5,
-      10px 0 30px rgb(97, 107, 125);
-  }
+    inset 20px 0 80px rgb(106, 137, 193),
+    inset -20px 0 80px rgb(119, 129, 146),
+    inset 20px 0 300px rgb(106, 137, 193),
+    inset -20px 0 300px rgb(119, 129, 146),
+    0 0 10px #fff,
+    -10px 0 30px rgb(106, 137, 193),
+    10px 0 30px rgb(119, 129, 146);
+}
 
-   //style for avg wind orb
-   .avgwind-orb{
-    grid-area: orb4;
-    place-self: center;
-    padding-top: 25px;
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    box-shadow:
-      inset 0 0 30px #fff,
-      inset 20px 0 80px #141444,
-      inset -20px 0 80px #a0b6c4,
-      inset 20px 0 300px #141444,
-      inset -20px 0 300px #a0b6c4,
-      0 0 10px #fff,
-      -10px 0 30px #141444,
-      10px 0 30px #a0b6c4;
-  }
+//style for peak 2min wind orb
+.peakwind-orb {
+  grid-area: orb3;
+  place-self: center;
+  padding-top: 25px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  box-shadow:
+    inset 0 0 30px #fff,
+    inset 20px 0 80px #e5e5e5,
+    inset -20px 0 80px rgb(97, 107, 125),
+    inset 20px 0 300px #e5e5e5,
+    inset -20px 0 300px rgb(97, 107, 125),
+    0 0 10px #fff,
+    -10px 0 30px #e5e5e5,
+    10px 0 30px rgb(97, 107, 125);
+}
 
-  Sate and County Dropdowns
   .dropdown-body{
     place-items: center;
     
@@ -165,21 +148,18 @@ $nav-theme-color: rgb(0, 0, 130);
   }
 
 
-/* CSS */
 button {
   background-color: #FFFFFF;
   border: 1px solid rgb(209,213,219);
   border-radius: .5rem;
   box-sizing: border-box;
   color: #111827;
-  // font-family: "Inter var",ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
   font-size: .875rem;
   font-weight: 600;
   line-height: 0.75rem;
   padding: .75rem 1rem;
   text-align: center;
   text-decoration: none #D1D5DB solid;
-  // text-decoration-thickness: auto;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   cursor: pointer;
   user-select: none;
@@ -202,12 +182,12 @@ button:focus {
   
 
 
-.about-page{
+.about-page {
   font-family: 'Ibarra Real Nova', serif;
   font-family: 'Lato', sans-serif;
 }
 
-#goal{
+#goal {
   display: grid;
   background-color: black;
   grid-template-columns: repeat(2, 1fr);
@@ -218,25 +198,25 @@ button:focus {
   padding: 30px;
 }
 
-.how-flex{
+.how-flex {
   display: flex;
   align-items: center;
   align-content: center;
 }
 
-.about-turbines-img{
+.about-turbines-img {
   background-color: rgb(160, 209, 247);
   margin: auto;
   height: 500px;
   width: 100%;
 }
 
-#turbines{
+#turbines {
   height: 100%;
   width: 100%;
 }
 
-#how-we-did-it{
+#how-we-did-it {
   grid-area: 2 / 1 / 2 / 4;
   display: grid;
   justify-content: center;
@@ -245,17 +225,28 @@ button:focus {
   margin: auto;
 }
 
-.how-we-did-it-container{
+.how-we-did-it-container {
   grid-area: 1 / 2 / 1 / 2;
 }
 
-#more-info{
+#more-info {
   grid-area: 3 / 1 / 3 / 4;
   display: grid;
   grid-template-columns: 1fr 1fr;
   padding: 30px;
 }
 
-.paragraph1{
+.paragraph1 {
   grid-area: 1 / 1 / 1 / 1;
+}
+
+th {
+  font-size: small;
+  text-align: center;
+  height: 80px;
+}
+
+tr {
+  text-align: center;
+  height: 50px;
 }
