@@ -3,29 +3,148 @@ const fetch = require('node-fetch')
 //const mongoose = require('mongoose')
 require('dotenv').config();
 const { weatherData } = require('../models/dbModel');
-const { NOAA_KEY } = require('../secrets.js');
+const { NOAA_KEY, OPENWEATHER_KEY } = require('../secrets.js');
+const COUNTRY_CODE = 'US';
 
 const apiController = {};
 
 // GET request for weather data at FIPS code passed in from prev middleware
 apiController.noaaData = async (req, res, next) => { 
-  const fipsCode = res.locals.data;
-  await fetch(`https://www.ncei.noaa.gov/cdo-web/api/v2/data?enddate=2022-08-03&startdate=2012-08-03&locationid=FIPS:${fipsCode}&datasetid=GSOY&datatypeid=PSUN&datatypeid=TAVG&datatypeid=TMAX&datatypeid=TMIN&datatypeid=DX32&datatypeid=DX70&datatypeid=DX90&datatypeid=AWND&datatypeid=WSF2&limit=1000`,{
+  await fetch(`https://www.ncei.noaa.gov/cdo-web/api/v2/data?enddate=2021-12-31&startdate=2012-01-01&locationid=FIPS:${res.locals.fips}&datasetid=GSOY&datatypeid=PSUN&datatypeid=TAVG&datatypeid=TMAX&datatypeid=TMIN&datatypeid=DX32&datatypeid=DX70&datatypeid=DX90&datatypeid=AWND&datatypeid=WSF2&limit=1000`,{
     headers:{
       'token' : NOAA_KEY
     }})
-    .then(res => {console.log(res); return res.json(); })
+    .then(res => res.json())
     .then(noaaData => {
-      res.locals.weather = noaaData;
+      console.table(noaaData.results);
+      res.locals.weatherData = noaaData.results;
       return next();
     })
     .catch(err => next({
-      log: 'apiController.saveData failed',
-      message: 'failed to save weatherData to database'
+      log: 'apiController.noaaData failed',
+      message: 'failed to fetch weather data'
     }));
 };
 
+apiController.noaaDataTypes = async(req, res, next) => {
+  const fipsCode = res.locals.fips;
+  await fetch(`https://www.ncei.noaa.gov/cdo-web/api/v2/datatypes?enddate=2021-12-31&startdate=2012-01-01&locationid=FIPS:${fipsCode}&limit=1000`,{
+    headers:{
+      'token' : NOAA_KEY
+    }})
+    .then(res => res.json())
+    .then(noaaData => {
+      console.table(noaaData.results);
+      res.locals.weatherData = noaaData.results;
+      return next();
+    })
+    .catch(err => next({
+      log: 'apiController.noaaDataTypes failed',
+      message: 'failed to fetch weather Data Types data'
+    }));
+};
 
+apiController.formatData = (req, res, next) => {
+  try {
+
+    console.log('we hit the formatData middleware');
+    const formattedData = [];
+    for (let i = 2021; i > 2011; i--) {
+      formattedData.push({year: i});
+    }
+    const yearKey = {
+      2021: 0,
+      2020: 1, 
+      2019: 2,
+      2018: 3,
+      2017: 4,
+      2016: 5,
+      2015: 6,
+      2014: 7,
+      2013: 8,
+      2012: 9,
+    };
+    const getYearIndex = (date) => {
+      return yearKey[date.slice(0, 4)];
+    };
+    res.locals.weatherData.forEach((el) => {
+      const index = getYearIndex(el.date);
+      formattedData[index][el.datatype] = el.value;
+    });
+    console.table(formattedData);
+    res.locals.formattedData = formattedData;
+    return next();
+  }
+  catch(err) {
+    console.log(err);
+    return next({
+      log: 'apiController.formatData failed',
+      message: 'failed to fetch weather data'
+    });
+  }
+};
+
+
+// apiController.arcgisGeocode = (req, res, next) => {
+//   const { state, county } = req.params;
+//   fetch(`https://geocode-api.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates?singleLine=&subRegion=sourceCountry=USA&f=json&outFields=location&token=${ARCGIS_KEY}`, 
+//     {
+//       method: 'POST',
+//       body: 
+//     }
+//   )
+//     .then(response => response.data)
+//     .then(data => {
+//       res.locals.geocode = {'lat': data.lat, 'lon': data.lon};
+//       res.locals.name = data.name;
+//       return next();
+//     })
+//     .catch(err => next({
+//       log: 'apiController.directGeocode failed',
+//       message: 'failed to fetch geocode data (lat, long)'
+//     }));
+
+// }
+
+apiController.directGeocode = (req, res, next) => {
+  // const { zipcode } = req.query;
+  const { zip } = req.params;
+  fetch(`http://api.openweathermap.org/geo/1.0/zip?zip=${zip},${COUNTRY_CODE}&appid=${OPENWEATHER_KEY}`)
+    .then(response => {
+      return response.json();
+    })
+    .then(data => {
+      console.log(data);
+      res.locals.geocode = {'lat': data.lat, 'lon': data.lon};
+      return next();
+    })
+    .catch(err => next({
+      log: 'apiController.directGeocode failed',
+      message: 'failed to fetch geocode data (lat, long)'
+    }));
+};
+
+apiController.getWeatherData = (req, res, next) => {
+  const { lat, lon } = res.locals.geocode;
+  // temp, pressure, humidity, wind, precipitation, clouds, sunshine_hours
+  fetch(`https://history.openweathermap.org/data/2.5/aggregated/year?lat=${lat}&lon=${lon}&appid=${OPENWEATHER_KEY}`)
+    .then(response => response.json())
+    .then(data => {
+      let counter = 0;
+      let clouds = 0;
+      data.result.forEach(el => {
+        counter++;
+        clouds += el.clouds.mean;
+      });
+      console.log(`clouds: ${clouds}, counter: ${counter}, avg: ${clouds / counter}`);
+      res.locals.avgCloudCover = (clouds / counter).toFixed(2);
+      return next();
+    })
+    .catch(err => next({
+      log: 'apiController.getWeatherData failed',
+      message: 'failed to fetch weather data'
+    }));
+}
 
 // apiController.saveData = async (req, res, next) => {
 //   try {

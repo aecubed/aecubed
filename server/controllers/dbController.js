@@ -20,7 +20,6 @@ const dbController = {
 
   getCounties: async (req, res, next) => {
     try {
-      console.log(req.params);
       const counties = await Fips.distinct('county', {state: req.params.state}).exec();
       res.locals.counties = counties;
       return next();
@@ -39,8 +38,8 @@ const dbController = {
     try{
       const { county, state } = req.params;
       const doc = await Fips.findOne({county: county, state: state});
-      console.log(doc);
-      res.locals.data = doc.fips;
+      res.locals.fips = doc.fips;
+      console.log(doc.fips);
       return next();
     } catch (error) {
       return next({
