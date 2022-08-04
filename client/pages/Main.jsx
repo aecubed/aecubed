@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import OrbContainer from '../components/OrbContainer.jsx';
+import Table from '../components/Table.jsx';
 import { useEffect } from 'react';
 
 const Main = () => {
@@ -22,24 +23,28 @@ const Main = () => {
   const [performanceTurbine, setPerfomanceTurbine] = useState()
   //State for the zip code input and Location of zip and month
   // const[month, setMonth] = useState("");
-  
-  const[zipCode, setZipCode] = useState('');
-  const[location, setLocation] = useState('');
+
+  const [zipCode, setZipCode] = useState('');
+  const [location, setLocation] = useState('');
   //State for the 5 data points for each location
-  const [temperatureOrb, setTemperatureOrb] = useState();
-  const [humidityOrb, setHumidityOrb] = useState();
-  const [windOrb, setWindOrb] = useState();
-  const [precipitationOrb, setPrecipitationOrb] = useState();
-  const [cloudOrb, setCloudOrb] = useState();
+  // const [yearArray, setYearArray] = useState([]);
+  // const [sunArray, setSunArray] = useState([]);
+  // const [temperatureArray, setTemperatureArray] = useState([]);
+  // const [wind1Array, setWind1Array] = useState([]);
+  // const [wind2Array, setWind2Array] = useState([]);
+
+  const [data, setData] = useState([]);
+
   const [states, setStates] = useState(['-- Select a State --']);
   const [counties, setCounties] = useState(['-- Select a County --']);
 
   const [selectedState, setSelectedState] = useState('-- Select a State --');
+  const [selectedCounty, setSelectedCounty] = useState('-- Select a Country --');
 
   // On component mount
-    // get the list of states 
-    // pass the states list down to a states dropdown component
-  
+  // get the list of states 
+  // pass the states list down to a states dropdown component
+
   useEffect(() => {
     console.log('page has loaded, fetching states');
     fetch('http://localhost:8080/map/states')
@@ -70,83 +75,43 @@ const Main = () => {
       })
   }, [selectedState]);
 
-
-
-//methods to handle events
-  
-  
-  // On selecting a state
-    // make a GET request to the API endpoint associated with that state
-    // get the list of counties for that state
-    // pass that list down to the "counties" dropdown component
-    
-  //takes state value
-    //makes a get request
-
-  //THIS SHOULD BE SET TO FIRE ON THE STATE DROPDOWN
-  //   const selectCounty = async () => { 
-
-  //   try {
-  //     console.log(before county fetch request);
-  //     const reponse = await fetch('http://localhost:8080/map/state/${selectedStatevalue}')
-  //     const countiesList = await response.json();
-  //     console.log(countiesList);
-  //     console.log(counties);
-  //     setCounties(counties.concat(countiesList));
-  //   }
-  //     catch(err){
-  //       console.log(`Something went wrong when trying to load counties ${err}`)
-  //     }
-     
-  //   } 
-  // }
-  
   //populates state dropdown
   const statesDropdown = [];
   console.log(counties);
 
-  for(let i = 0 ; i < states.length; i++){
-    statesDropdown.push(<option value = {states[i]}> {states[i]} </option>);
+  for (let i = 0; i < states.length; i++) {
+    statesDropdown.push(<option value={states[i]}> {states[i]} </option>);
   }
 
   //populates the counties dropdown
   const countiesDropdown = [];
   console.log(counties);
 
-  for(let i = 0 ; i< counties.length; i++){
-    countiesDropdown.push(<option value = {counties[i]}> {counties[i]} </option>);
+  for (let i = 0; i < counties.length; i++) {
+    countiesDropdown.push(<option value={counties[i]}> {counties[i]} </option>);
   }
-  
 
-    
-
-  // On clicking submit
-    // hit the correct api endpoint
-    // populate all of the state fields
-
-  //handle user input of zip code
+  /* handle submit */
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('invoked handle submit');
-    axios.post('/map', { zipcode: zipCode })
+    /*  render performance  */
+
+
+    /* render table */
+    axios.post(`/map/states/:${selectedState}/:${selectedCounty}`)
       .then(response => response.data)
       .then(data => {
-        // console.log(data)
-        const name = data.name;
-        const { temp, humidity, wind, precipitation, clouds } = data.average;
-        console.log(data.average)
-        const { performanceSolar, performanceTurbine } = data.performance;
-        setTemperatureOrb(temp)
-        setHumidityOrb(humidity)
-        setWindOrb(wind)
-        setPrecipitationOrb(precipitation)
-        setCloudOrb(clouds)
-        setPerfomanceTurbine(performanceTurbine)
-        setPerformanceSolar(performanceSolar)
-        setLocation(name);
-        setZipCode('');
+        console.log('-- year data from api --', data);
+        // const { year, sun, temp, wind1, wind2 } = data;
+        // setYearArray(year);
+        // setSunArray(sun);
+        // setTemperatureArray(temp);
+        // setWind1Array(wind1);
+        // setWind2Array(wind2);
+        setData(data);
       })
-      .catch((err) => { 
+      .catch((err) => {
         return {
           log: 'failed to receive weather data',
           message: 'failed recieve weather data'
@@ -154,19 +119,17 @@ const Main = () => {
       });
   };
 
-
-
   return (
     <>
       <div className='main'>
         <div className='body'>
-        
-            
-          
+
+
+
           {/* Location Table */}
           <div className='table-container'>
-            <div className = 'testTable'>
-              <div id ="dropDown">
+            <div className='testTable'>
+              <div id="dropDown">
 
                 <h2>States</h2>
                 <select >
@@ -184,7 +147,7 @@ const Main = () => {
             <div className="form-group">
               <form onSubmit={handleSubmit}>
                 <label htmlFor="zipcodeInput">ZIP Code</label>
-                <input type="number" className="form-control" id="inputZIP" placeholder="Enter ZIP" value={zipCode} onChange={e => {setZipCode(e.target.value)}}></input>
+                <input type="number" className="form-control" id="inputZIP" placeholder="Enter ZIP" value={zipCode} onChange={e => { setZipCode(e.target.value) }}></input>
                 <button id="submitZIP" type="submit">Enter</button>
               </form>
             </div>
@@ -218,13 +181,22 @@ const Main = () => {
           </div>
 
           {/* Energy Orbs */}
-          <OrbContainer 
-            temperature='temperatureOrb' 
-            humidity='humidityOrb' 
+          <OrbContainer
+            temperature='temperatureOrb'
+            humidity='humidityOrb'
             wind='windOrb'
             precipitation='precipitationOrb'
             cloudCover='cloudOrb'
           />
+
+          {/* data table */}
+          <Table
+            // yearArray={yearArray}
+            // sunArray={sunArray}
+            // temperatureArray={temperatureArray}
+            // wind1Array={wind1Array}
+            // wind2Array={wind2Array} 
+            data={data} />
         </div>
       </div>
     </>
