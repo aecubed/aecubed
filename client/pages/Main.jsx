@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import OrbContainer from '../components/OrbContainer.jsx';
+import { useEffect } from 'react';
 
 const Main = () => {
   /*
@@ -30,9 +31,99 @@ const Main = () => {
   const [windOrb, setWindOrb] = useState();
   const [precipitationOrb, setPrecipitationOrb] = useState();
   const [cloudOrb, setCloudOrb] = useState();
+  const [states, setStates] = useState(['-- Select a State --']);
+  const [counties, setCounties] = useState(['-- Select a County --']);
+
+  const [selectedState, setSelectedState] = useState('-- Select a State --');
+
+  // On component mount
+    // get the list of states 
+    // pass the states list down to a states dropdown component
+  
+  useEffect(() => {
+    console.log('page has loaded, fetching states');
+    fetch('http://localhost:8080/map/states')
+      .then(res => res.json())
+      .then(res => {
+        console.log('result of hitting states endpoint:');
+        console.log(res);
+        setStates(['-- Select a State --'].concat(res));
+      })
+      .catch(err => {
+        console.log('error in fetching states');
+        console.log(err);
+      })
+  }, []);
+
+  useEffect(() => {
+    console.log('selected state has changed, updating counties');
+    fetch(`http://localhost:8080/map/states/${selectedState}`)
+      .then(res => res.json())
+      .then(res => {
+        console.log('result of hitting counties endpoint:');
+        console.log(res);
+        setCounties(['-- Select a County --'].concat(res));
+      })
+      .catch(err => {
+        console.log('error in fetching counties');
+        console.log(err);
+      })
+  }, [selectedState]);
+
+
 
 //methods to handle events
   
+  
+  // On selecting a state
+    // make a GET request to the API endpoint associated with that state
+    // get the list of counties for that state
+    // pass that list down to the "counties" dropdown component
+    
+  //takes state value
+    //makes a get request
+
+  //THIS SHOULD BE SET TO FIRE ON THE STATE DROPDOWN
+  //   const selectCounty = async () => { 
+
+  //   try {
+  //     console.log(before county fetch request);
+  //     const reponse = await fetch('http://localhost:8080/map/state/${selectedStatevalue}')
+  //     const countiesList = await response.json();
+  //     console.log(countiesList);
+  //     console.log(counties);
+  //     setCounties(counties.concat(countiesList));
+  //   }
+  //     catch(err){
+  //       console.log(`Something went wrong when trying to load counties ${err}`)
+  //     }
+     
+  //   } 
+  // }
+  
+  //populates state dropdown
+  const statesDropdown = [];
+  console.log(counties);
+
+  for(let i = 0 ; i < states.length; i++){
+    statesDropdown.push(<option value = {states[i]}> {states[i]} </option>);
+  }
+
+  //populates the counties dropdown
+  const countiesDropdown = [];
+  console.log(counties);
+
+  for(let i = 0 ; i< counties.length; i++){
+    countiesDropdown.push(<option value = {counties[i]}> {counties[i]} </option>);
+  }
+  
+
+    
+
+  // On clicking submit
+    // hit the correct api endpoint
+    // populate all of the state fields
+
   //handle user input of zip code
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -63,13 +154,32 @@ const Main = () => {
       });
   };
 
+
+
   return (
     <>
       <div className='main'>
         <div className='body'>
-
+        
+            
+          
           {/* Location Table */}
           <div className='table-container'>
+            <div className = 'testTable'>
+              <div id ="dropDown">
+
+                <h2>States</h2>
+                <select >
+                  {statesDropdown}
+                </select>
+
+                <h2>Counties</h2>
+                <select >
+                  {countiesDropdown}
+                </select>
+
+              </div>
+            </div>
 
             <div className="form-group">
               <form onSubmit={handleSubmit}>
@@ -119,7 +229,7 @@ const Main = () => {
       </div>
     </>
   );
-};
+}
 
 
 export default Main;
