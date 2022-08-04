@@ -32,6 +32,7 @@ apiController.noaaData = async (req, res, next) => {
     .then(res => {console.log(res); return res.json(); })
   .then(noaaData => {
     res.locals.weather = noaaData;
+    return next();
   })
   .catch(err => next({
     log: 'apiController.saveData failed',
