@@ -1,6 +1,6 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
-const { MONGO_URI } = require('./secrets.js')
+const { MONGO_URI } = require('../secrets.js')
 
 
 mongoose

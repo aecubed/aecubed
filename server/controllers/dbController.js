@@ -1,12 +1,11 @@
 const mongoose = require('mongoose');
 // we should really rename apiModel to reflect the actual model
-const { Fips } = require('../apiModel');
+const { Fips } = require('../models/dbModel');
 
 const dbController = {
   getStates: async (req, res, next) => {
     try {
       const states = await Fips.distinct('state').exec();
-      console.log(states);
       res.locals.states = states;
       return next();
     }
@@ -23,7 +22,6 @@ const dbController = {
     try {
       console.log(req.params);
       const counties = await Fips.distinct('county', {state: req.params.state}).exec();
-      console.log(counties);
       res.locals.counties = counties;
       return next();
     }
@@ -34,6 +32,22 @@ const dbController = {
         message: 'failed to retrieve counties from database'
       });
     }
+  },
+
+  //Retreiving FIPS code from MongoDB from client entry of county and state
+  getFips: async(req, res, next) => {
+    try{
+      const { county, state } = req.params;
+      const doc = await Fips.findOne({county: county, state: state});
+      console.log(doc);
+      res.locals.data = doc.fips;
+      return next();
+    } catch (error) {
+      return next({
+        log: 'apiController.getFips failed',
+        message: 'failed to retrieve FIPS code from database'
+      });
+    } 
   }
 };
 
