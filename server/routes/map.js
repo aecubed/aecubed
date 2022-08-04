@@ -27,6 +27,14 @@ mapRouter.get('/states/:state', dbController.getCounties, (req, res) => { // to 
 })
 
 // fire after clicking the submit button
+<<<<<<< HEAD
+mapRouter.get('/states/:state/:county', dbController.getFips, weather.noaaData, weather.formatData, (req, res)=> { // to get weather // test later  weather.noaaData,
+  return res.status(200).json(res.locals.formattedData);
+});
+
+mapRouter.get('/cloudcover/:zip', apiController.directGeocode, apiController.getWeatherData, (req, res) => {
+  return res.send(res.locals.avgCloudCover);
+=======
 mapRouter.get('/states/:state/:county', dbController.getFips, weather.noaaData, (req, res) => { // to get weather // test later  weather.noaaData,
   console.log(req.params);
   const testData = [
@@ -37,6 +45,7 @@ mapRouter.get('/states/:state/:county', dbController.getFips, weather.noaaData, 
   return res.status(200).json(testData); // res.locals.data
   // query api by using fips as params here
   // handle data 
+>>>>>>> dev
 });
 
 module.exports = mapRouter; 
