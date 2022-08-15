@@ -1,13 +1,13 @@
-const path = require ('path');
+const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 require('dotenv').config();
 
 module.exports = {
-	mode: process.env.NODE_ENV,
+  mode: process.env.NODE_ENV,
   entry: './client/index.js',
   output: {
     path: path.resolve(__dirname, 'public'),
-		filename: 'bundle.js',
+    filename: 'bundle.js',
     publicPath: '/public'
   },
   module: {
@@ -23,7 +23,7 @@ module.exports = {
       },
       {
         test: /.(css|scss)$/,
-        exclude: /node_modules/,
+        exclude: [/node_modules/, /server\/importFipsData.js/],
         use: [
           {
             loader: 'style-loader'
@@ -51,8 +51,9 @@ module.exports = {
         type: 'asset/resource',
         exclude: /node_modules/,
         use: [
-          {loader: 'file-loader',
-           options: {
+          {
+            loader: 'file-loader',
+            options: {
               name: '[name].[ext]',
               publicPath: '/public',
               outputPath: '/public/assets'
@@ -61,7 +62,7 @@ module.exports = {
           {
             loader: 'url-loader',
             options: {
-              limit:8192
+              limit: 8192
             }
           }
         ],
@@ -84,9 +85,20 @@ module.exports = {
     port: 8080,
     compress: true,
     hot: true,
-    proxy: {'/**': {
-      target: 'http://localhost:3000', 
-      secure: false
-    }}
+    proxy: {
+      '/**': {
+        target: 'http://localhost:3000',
+        secure: false
+      },
+      '/map/state': {
+        target: 'http://localhost:3000',
+        secure: false
+      },
+      '/states/**': {
+        target: 'http://localhost:3000',
+        secure: false
+      }
+
+    }
   },
 }

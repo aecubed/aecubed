@@ -10,6 +10,8 @@ const mapRouter = require('./routes/map')
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 
+// test server
+server.get('/test', (req, res) => res.json('i am okay!!!'))
 
 server.get('/', (req, res, next) => {
   res.sendFile(path.resolve(__dirname, '../public/index.html'));
