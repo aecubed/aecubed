@@ -4,12 +4,9 @@ import reactDom from 'react-dom';
 //import bootstrap's CSS and JS file
 // import "bootstrap/dist/css/bootstrap.min.css";
 // import "bootstrap/dist/js/bootstrap.bundle.min";
-
-import "./stylesheets/style.scss"
-import * as bootstrap from 'bootstrap';
-
-import App from './components/App.jsx'
+import App from './components/App.jsx';
 
 
-//mount our React app to the index.html at root element
-reactDom.render(< App/>, document.querySelector("#root"));
+// mount our React app to the index.html at root element. 
+// The || is because React Testing Library doesn't load index.html and therefore can't find #root
+reactDom.render(<App/>, document.querySelector('#root') || document.createElement('div'));
